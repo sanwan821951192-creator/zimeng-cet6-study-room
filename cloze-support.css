@@ -1,0 +1,91 @@
+.word-bank.cloze-support-bank {
+  padding-bottom: 18px;
+}
+
+.cloze-support-bank .cloze-bank-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  margin-bottom: 12px;
+}
+
+.word-bank.cloze-support-bank h3 {
+  margin: 0;
+}
+
+.word-bank.cloze-support-bank > .cloze-bank-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: 8px 12px;
+}
+
+.cloze-support-bank .cloze-bank-item {
+  position: relative;
+  min-width: 0;
+  padding: 9px 11px;
+  border: 1px solid var(--line, #d8e2d9);
+  border-radius: 5px;
+  background: var(--paper, #fff);
+}
+
+.word-bank.cloze-support-bank .cloze-bank-en {
+  display: block;
+  min-height: 27px;
+  padding-right: 80px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 18px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.cloze-support-bank .cloze-bank-en b {
+  color: var(--pine, #174d40);
+}
+
+.cloze-support-bank .cloze-bank-meaning {
+  margin: 0;
+}
+
+.cloze-support-bank .cloze-bank-meaning > summary {
+  position: absolute;
+  top: 9px;
+  right: 9px;
+  padding: 3px 4px;
+  list-style: none;
+  color: var(--river, #276376);
+  font-size: 12px;
+  line-height: 1.7;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
+  border-radius: 3px;
+}
+
+.cloze-support-bank .cloze-bank-meaning > summary::-webkit-details-marker {
+  display: none;
+}
+
+.cloze-support-bank .cloze-bank-meaning > summary:hover {
+  color: var(--pine, #174d40);
+  text-decoration: underline;
+}
+
+.cloze-support-bank .cloze-bank-meaning > summary:focus-visible {
+  outline: 3px solid var(--sun, #9f782d);
+  outline-offset: 2px;
+}
+
+.cloze-support-bank .cloze-bank-zh {
+  margin: 8px 0 0;
+  color: var(--muted, #596a60);
+  font-family: var(--font, sans-serif);
+  font-size: 14px;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+
+.cloze-support-bank .cloze-bank-all {
+  flex: none;
+}

@@ -1,0 +1,13 @@
+.question-window{position:fixed;right:20px;top:104px;width:360px;max-height:calc(100dvh - 128px);overflow:auto;z-index:70;background:#f9fcf5;border:1px solid #b9cbbb;border-radius:14px;box-shadow:0 12px 40px #163b3328;color:var(--ink)}
+.question-window-header{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 16px;border-bottom:1px solid var(--line);position:sticky;top:0;background:#edf4eb;z-index:1}
+.question-window-header h2{font-size:17px;margin:0;color:var(--pine)}
+.question-window-header>div{display:flex;gap:12px}.question-window-header button{min-height:32px;font-size:13px}
+.question-window .question-block{padding:14px 16px;margin:0;border:0;background:transparent;box-shadow:none}
+.question-window .question-prompt{font-size:17px;line-height:1.55;margin:0 0 14px}
+.pinned-options{display:grid;gap:8px}.question-window .option{display:flex;width:100%;text-align:left;font-size:15px;line-height:1.45;min-height:44px;padding:9px 10px}
+.question-window .option strong{flex-shrink:0}.question-window .letter-options{flex-wrap:wrap}
+.question-window-footer{display:flex;justify-content:space-between;gap:8px;padding:10px 16px 16px;position:sticky;bottom:0;background:#f9fcf5}.question-window-footer button{min-height:36px;font-size:13px}
+.pin-question{margin-left:auto;white-space:nowrap;font-size:13px}.question-head{flex-wrap:wrap}
+@media(min-width:1100px){.has-question-window .main{padding-right:410px}}
+@media(max-width:1099px){.question-window{top:auto;bottom:16px;max-height:45dvh;width:min(380px,calc(100% - 32px))}.has-question-window .main{padding-bottom:calc(45dvh + 48px)}}
+@media(max-width:600px){.question-window{left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom,0px));width:auto;max-height:42dvh;border-radius:12px}.question-window-header{padding:8px 12px}.question-window .question-block{padding:10px 12px}.question-window .question-prompt{font-size:16px}.question-window .option{font-size:14px}.question-window-footer{padding:10px 12px 12px}.has-question-window .main{padding-bottom:calc(42dvh + 48px)}}

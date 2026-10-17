@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#154c43">
+  <title>梓萌的英语自学室</title>
+  <meta name="description" content="每天听一段，三类阅读各一篇。从10月14日开始，先建立听读习惯，再练写译与模拟。">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="cloze-support.css">
+  <link rel="stylesheet" href="question-window.css">
+</head>
+<body>
+  <a class="skip-link" href="#learning-main">跳到学习内容</a>
+  <div class="shell">
+    <aside class="sidebar" aria-label="主导航">
+      <a class="brand" href="#" data-action="home"><span class="leafmark" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none"><path d="M24 38V16M24 33C13 33 7 25 8 11c11 0 17 7 16 22ZM24 27c10 0 16-8 16-18-10 0-16 7-16 18Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="m13 18 11 15M34 16 24 27M10 40h28" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span><span>梓萌的<br>英语自学室</span></a>
+      <nav><button data-view="today" class="nav-button active">今日学习</button><button data-view="plan" class="nav-button">全部计划</button><button data-view="progress" class="nav-button">学习记录</button><button data-view="words" class="nav-button">生词本</button><button data-view="library" class="nav-button">资料书架</button></nav>
+      <div class="sidebar-bottom"><button class="text-button" data-action="export">导出学习记录</button></div>
+    </aside>
+    <main class="main" id="learning-main" tabindex="-1">
+      <header class="topbar"><span id="top-label">明天开始，自主学英语</span></header>
+      <div id="app"></div>
+    </main>
+  </div>
+  <section class="audio-dock" id="audio-dock" hidden aria-label="听力播放器"><div class="audio-heading"><b id="audio-title">听力原音</b><span id="audio-status"></span><button class="text-button" data-action="audio-hide">收起播放器</button></div><audio id="global-audio" controls preload="none"></audio><div class="audio-tools"><button class="small-button" data-action="rewind">回听5秒</button><button class="small-button" data-action="repeat">回听20秒</button><label>速度 <select id="audio-speed"><option value="0.8">0.8倍（复盘）</option><option value="1" selected>原速</option><option value="1.2">1.2倍</option></select></label><button class="small-button" data-action="set-a">设A点</button><button class="small-button" data-action="set-b">设B点</button><button class="small-button" data-action="loop" id="loop-button">循环关</button><span id="ab-label">先听一遍，再回听关键句。</span></div></section>
+  <dialog id="dialog"><button class="dialog-close" data-action="close-dialog" aria-label="关闭">×</button><div id="dialog-body"></div></dialog>
+  <input type="file" id="import-file" accept="application/json,.json" hidden>
+  <div class="toast" id="toast" role="status" hidden></div>
+  <script src="data.js"></script><script src="methods.js"></script><script src="cloze-support.js"></script><script src="human-pronunciation-direct.js"></script><script src="pronunciation.js"></script><script src="app.js"></script><script src="highlights.js"></script><script src="words.js"></script>
+</body></html>
