@@ -3,13 +3,15 @@
 window.WordNotebook=(()=>{
   const normalize=w=>String(w||'').trim().replace(/[’‘]/g,"'").toLowerCase();
   const valid=w=>/^[a-z][a-z'-]*(?: [a-z][a-z'-]*){0,3}$/.test(w)&&w.length<=70;
-  const local=new Map(),loads=new Map(),pairs=[];let current=null,ticket=0,filter='',returnFocus=null,returnSnapshot=null,lastRect=null;
+  const local=new Map(),loads=new Map(),pairs=[],pairKeys=new Set(),tokenPairs=new Map(),formPairs=new Map(),studyPairs=new Map(),matchCache=new Map(),dictionaryCache=new Map();let current=null,ticket=0,filter='',returnFocus=null,returnSnapshot=null,lastRect=null;
   const textKey=t=>String(t||'').replace(/\s+/g,' ').trim();
-  const contains=(text,word)=>!!word&&new RegExp("(^|[^A-Za-z])"+normalize(word).replace(/[.*+?^${}()|[\]\\]/g,'\\$&').replace(/ /g,'\\s+')+"(?=$|[^A-Za-z])",'i').test(String(text||''));
+  function indexPair(index,key,pair){if(!index.has(key))index.set(key,new Set());index.get(key).add(pair);}
   function addPair(example,exampleZh,lessonId='',exampleSource='原文例句',forms=[],date='',rank=0){
     if(!example||!exampleZh||example.length>6000||exampleZh.length>6000)return;
-    if(pairs.some(p=>p.lessonId===lessonId&&textKey(p.example)===textKey(example)&&p.exampleZh===exampleZh&&p.date===date))return;
-    pairs.push({example,exampleZh,lessonId,exampleSource,forms:forms.map(normalize).filter(Boolean),date,rank});
+    const normalizedText=textKey(example),key=JSON.stringify([lessonId,normalizedText,exampleZh,date]);if(pairKeys.has(key))return;pairKeys.add(key);
+    const pair={example,exampleZh,lessonId,exampleSource,forms:forms.map(normalize).filter(Boolean),date,rank,normalizedText,order:pairs.length};pairs.push(pair);
+    for(const token of new Set(example.toLowerCase().match(/[a-z]+/g)||[]))indexPair(tokenPairs,token,pair);
+    for(const form of pair.forms){indexPair(formPairs,form,pair);if(rank)indexPair(studyPairs,form,pair);}
   }
   function addCard(c,lessonId='',date=''){
     const forms=[c.word,c.sourceWord].filter(Boolean),meaning=c.meaning||c.zh;
@@ -28,15 +30,25 @@ window.WordNotebook=(()=>{
     }
   }
   if(typeof days!=='undefined')for(const d of days)addPair(d.interestSnippet?.english,d.interestSnippet?.chinese,'今天的开场','双语开场',[],d.date);
+  function matchingPairs(word){
+    if(matchCache.has(word))return matchCache.get(word);
+    const token=word.match(/^[a-z]+/)?.[0],candidates=new Set([...(tokenPairs.get(token)||[]),...(formPairs.get(word)||[])]);
+    const pattern=new RegExp("(^|[^A-Za-z])"+word.replace(/[.*+?^${}()|[\]\\]/g,'\\$&').replace(/ /g,'\\s+')+"(?=$|[^A-Za-z])",'i');
+    const result=[...candidates].filter(p=>p.forms.includes(word)||pattern.test(p.example));
+    if(matchCache.size>=512)matchCache.delete(matchCache.keys().next().value);matchCache.set(word,result);return result;
+  }
   function findPair(word,lessonId='',example='',lemma=''){
     const forms=[normalize(word),normalize(lemma)].filter(Boolean),exact=textKey(example);
-    return pairs.filter(p=>forms.some(w=>p.forms.includes(w)||contains(p.example,w))).map(p=>({p,score:(exact&&textKey(p.example)===exact?10000:0)+(lessonId&&p.lessonId===lessonId?500:0)+(p.date===day().date?100:0)+(exact&&textKey(p.example).includes(exact)?80:0)+(p.forms.some(w=>forms.includes(w))?50:0)+(p.exampleSource!=='原文语境'?10:0)})).sort((a,b)=>b.score-a.score)[0]?.p||null;
+    let best=null,bestScore=-1;
+    for(const p of new Set(forms.flatMap(matchingPairs))){const score=(exact&&p.normalizedText===exact?10000:0)+(lessonId&&p.lessonId===lessonId?500:0)+(p.date===day().date?100:0)+(exact&&p.normalizedText.includes(exact)?80:0)+(p.forms.some(w=>forms.includes(w))?50:0)+(p.exampleSource!=='原文语境'?10:0);if(score>bestScore||score===bestScore&&p.order<best.order){best=p;bestScore=score;}}
+    return best;
   }
-  function exactPair(word,lessonId,example,lemma=''){const p=findPair(word,lessonId,example,lemma);return p&&textKey(p.example)===textKey(example)?p:null;}
+  function exactPair(word,lessonId,example,lemma=''){if(!textKey(example))return null;const p=findPair(word,lessonId,example,lemma);return p&&p.normalizedText===textKey(example)?p:null;}
   function findStudyPair(word,lessonId='',lemma=''){
     const forms=[normalize(word),normalize(lemma)].filter(Boolean);
-    const cards=pairs.filter(p=>p.rank&&p.forms.some(w=>forms.includes(w)));
-    return cards.map(p=>({p,score:p.rank*2000+(p.lessonId===lessonId?500:0)+(p.date===day().date?100:0)+(p.exampleSource==='学习例句'?50:0)})).sort((a,b)=>b.score-a.score)[0]?.p||findPair(word,lessonId,'',lemma);
+    let best=null,bestScore=-1;
+    for(const p of new Set(forms.flatMap(w=>[...(studyPairs.get(w)||[])]))){const score=p.rank*2000+(p.lessonId===lessonId?500:0)+(p.date===day().date?100:0)+(p.exampleSource==='学习例句'?50:0);if(score>bestScore||score===bestScore&&p.order<best.order){best=p;bestScore=score;}}
+    return best||findPair(word,lessonId,'',lemma);
   }
   function sameContext(a,b){return textKey(a.example)===textKey(b.example)&&(a.lessonId||'')===(b.lessonId||'');}
   function resolveEntry(entry,word=entry?.word,lemma=''){
@@ -56,12 +68,29 @@ window.WordNotebook=(()=>{
     saved.personalWords[word]=next;if(!persist()){saved.personalWords[word]=previous;return previous}return next;
   }
   const box=document.createElement('section');box.id='word-lookup';box.hidden=true;box.setAttribute('role','dialog');box.setAttribute('aria-modal','true');box.setAttribute('aria-label','查词与加入生词本');box.innerHTML='<div class="lookup-top"><b>选词查询</b><button type="button" data-word-action="close" aria-label="关闭查词">×</button></div><div id="lookup-body" aria-live="polite"></div>';document.body.append(box);
-  function shard(letter){
-    if(window.CET_DICTIONARY_SHARDS?.[letter])return Promise.resolve(window.CET_DICTIONARY_SHARDS[letter]);
-    if(loads.has(letter))return loads.get(letter);
-    const p=new Promise((resolve,reject)=>{const s=document.createElement('script');s.src='dictionary/'+letter+'.js';s.onload=()=>resolve(window.CET_DICTIONARY_SHARDS?.[letter]||{});s.onerror=()=>{s.remove();loads.delete(letter);reject(Error('词典未加载，请检查网络或离线文件是否完整。'))};document.head.append(s)});loads.set(letter,p);return p;
+  function bucket(word){let h=2166136261;for(let i=0;i<word.length;i++)h=Math.imul(h^word.charCodeAt(i),16777619);return (h&127).toString(16).padStart(2,'0');}
+  function dictionaryEntry(word){
+    const old=window.CET_DICTIONARY_SHARDS?.[word[0]];if(old&&Object.hasOwn(old,word))return old[word];
+    const data=window.CET_DICTIONARY_FAST?.[bucket(word)];if(!data||!Object.hasOwn(data,word))return null;
+    const r=data[word];return{meaning:r[0],phonetic:r[1],tag:r[2],...(r[3]?{lemma:r[3]}:{})};
   }
-  async function lookup(word){const w=normalize(word);if(local.has(w)){const p=findStudyPair(w,current?.lessonId||'');return {...local.get(w),word:w,...(p?{example:p.example,exampleZh:p.exampleZh,exampleSource:p.exampleSource}:{})};}if(!valid(w))return null;const d=await shard(w[0]);if(!Object.hasOwn(d,w))return null;const r={...d[w],word:w,source:'ECDICT本地词典'};if(r.lemma&&r.lemma!==w){const base=await shard(r.lemma[0]);if(Object.hasOwn(base,r.lemma))r.meaning+='\n\n原形 '+r.lemma+'：\n'+base[r.lemma].meaning}const p=findStudyPair(w,current?.lessonId||'',r.lemma);if(p)Object.assign(r,{example:p.example,exampleZh:p.exampleZh,exampleSource:p.exampleSource});return r;}
+  function shard(word){
+    const key=bucket(word);if(window.CET_DICTIONARY_FAST?.[key]||window.CET_DICTIONARY_SHARDS?.[word[0]])return Promise.resolve();
+    if(loads.has(key))return loads.get(key);
+    const request=new Promise((resolve,reject)=>{const s=document.createElement('script');let done=false;
+      const finish=error=>{if(done)return;done=true;clearTimeout(timer);s.onload=s.onerror=null;if(error){s.remove();loads.delete(key);reject(error)}else resolve()};
+      const timer=setTimeout(()=>finish(Error('词义加载超时，请点重试。')),12000);
+      s.src='dictionary-fast-v1-'+key+'.js';s.onload=()=>finish(window.CET_DICTIONARY_FAST?.[key]?null:Error('词库未加载完整，请点重试。'));s.onerror=()=>finish(Error('词典未加载，请检查网络后重试。'));document.head.append(s);
+    });loads.set(key,request);return request;
+  }
+  function immediateDefinition(w){if(local.has(w))return{...local.get(w),word:w};if(dictionaryCache.has(w))return dictionaryCache.get(w);const r=dictionaryEntry(w);return r?{...r,word:w,source:'ECDICT本地词典'}:null;}
+  async function lookup(word){
+    const w=normalize(word);if(!valid(w))return null;
+    let r=immediateDefinition(w);if(!r){await shard(w);const row=dictionaryEntry(w);if(!row)return null;r={...row,word:w,source:'ECDICT本地词典'};dictionaryCache.set(w,r);}
+    // A second network request for the lemma must never hold up the selected word.
+    if(r.lemma&&r.lemma!==w){const base=dictionaryEntry(r.lemma);if(base&&!r.meaning.includes('\n\n原形 '))r={...r,meaning:r.meaning+'\n\n原形 '+r.lemma+'：\n'+base.meaning};}
+    const p=findStudyPair(w,current?.lessonId||'',r.lemma);return{...r,...(p?{example:p.example,exampleZh:p.exampleZh,exampleSource:p.exampleSource}:{})};
+  }
   function sentence(text,word){text=String(text||'').replace(/\s+/g,' ').trim();const at=text.toLowerCase().indexOf(word.toLowerCase());if(at<0)return text;const before=text.slice(0,at),from=Math.max(before.lastIndexOf('. '),before.lastIndexOf('? '),before.lastIndexOf('! '));const tail=text.slice(at+word.length),end=tail.search(/[.!?](?:\s|$)/);return text.slice(from<0?0:from+2,end<0?text.length:at+word.length+end+1);}
   function contextText(node){
     if(!node)return '';
@@ -113,7 +142,7 @@ window.WordNotebook=(()=>{
     if(!current)return;rememberDrafts();const c=current,entry=saved.personalWords[c.word],r=c.result,focusBefore=captureLearningFocus(document.activeElement,box);
     const values={meaning:c.drafts.meaning??entry?.meaning??r?.meaning??'',example:c.drafts.example??c.example??'',exampleZh:c.drafts.exampleZh??c.exampleZh??''};c.rendered=values;
     const suggestion=findStudyPair(c.word,c.lessonId,r?.lemma);c.suggestion=suggestion;
-    $('#lookup-body').innerHTML=`<h3>${esc(c.word)}</h3>${c.loading?'<p role="status">正在查中文释义…</p>':r?`<p class="lookup-phonetic">${esc(r.phonetic||'')}${r.lemma?` · 原形 ${esc(r.lemma)}`:''}</p><p class="lookup-meaning">${esc(r.meaning)}</p><p class="text-note">${esc(r.source)}${r.tag?.includes('cet6')?' · 六级词汇':''}</p>`:`<p class="lookup-message">${esc(c.error||'词典暂未收录这个词或表达，可以填写中文释义后保存。')}</p>`}<label for="lookup-meaning-edit">${r?'本句里的意思（可修改）':'中文释义'}</label><textarea id="lookup-meaning-edit" rows="2" maxlength="1800" placeholder="填写适合这句话的中文意思">${esc(values.meaning)}</textarea><label for="lookup-example-edit">${c.editContextIndex!==undefined?'收藏原句（可修改）':'英文例句（可修改）'}</label><textarea id="lookup-example-edit" rows="3" maxlength="6000" placeholder="填写完整英文例句">${esc(values.example)}</textarea><label for="lookup-example-zh-edit">例句中文译文（可修改）</label><textarea id="lookup-example-zh-edit" class="lookup-example-translation" rows="3" maxlength="6000" placeholder="填写与上面英文完整对应的中文译文">${esc(values.exampleZh)}</textarea>${!values.example||!values.exampleZh?'<p class="lookup-message">这组例句尚未配齐，请补充英文例句和对应中文译文后保存。</p>':`<p class="text-note">${esc(c.exampleSource||'个人填写')}</p>`}${suggestion&&(textKey(suggestion.example)!==textKey(values.example)||!values.exampleZh)?`<details ${suggestion.rank?'open':''}><summary>${suggestion.rank?'课程学习例句':'原文语境'}</summary>${bilingualMarkup(suggestion,'lookup-suggestion-'+c.word,'lookup-example-translation')}<button class="small-button" data-word-action="use-example">使用这组双语例句</button></details>`:''}${c.captured?.example&&textKey(c.captured.example)!==textKey(values.example)?`<details><summary>保留的选词原句</summary><p class="word-example-small">${esc(c.captured.example)}</p>${c.captured.exampleZh?`<p class="word-context-translation">${esc(c.captured.exampleZh)}</p>`:'<p class="text-note">这条原句的逐句译文待补充；不会用整段中文代替。</p>'}</details>`:''}${pronunciationExampleMarkup(c.word,'lookup-recording-'+c.word)}<div class="lookup-pronunciation-status" role="status"></div><div class="lookup-actions"><button class="primary-button" data-word-action="save" ${c.loading?'disabled':''}>${entry?'保存释义与双语例句':'加入生词本'}</button><button class="small-button" data-word-action="speak" >${pronunciationLabel(c.word,pronunciationPos(c.word,c.lessonId))}</button></div><button class="text-button" data-word-action="notebook">打开生词本${Object.keys(saved.personalWords).length?'（'+Object.keys(saved.personalWords).length+'）':''}</button>`;
+    $('#lookup-body').innerHTML=`<h3>${esc(c.word)}</h3>${c.loading?'<p role="status">正在查中文释义…</p>':r?`<p class="lookup-phonetic">${esc(r.phonetic||'')}${r.lemma?` · 原形 ${esc(r.lemma)}`:''}</p><p class="lookup-meaning">${esc(r.meaning)}</p><p class="text-note">${esc(r.source)}${r.tag?.includes('cet6')?' · 六级词汇':''}</p>`:`<p class="lookup-message">${esc(c.error||'词典暂未收录这个词或表达，可以填写中文释义后保存。')}</p>${c.error?'<button class="small-button" data-word-action="retry">重试查询</button>':''}`}<label for="lookup-meaning-edit">${r?'本句里的意思（可修改）':'中文释义'}</label><textarea id="lookup-meaning-edit" rows="2" maxlength="1800" placeholder="填写适合这句话的中文意思">${esc(values.meaning)}</textarea><label for="lookup-example-edit">${c.editContextIndex!==undefined?'收藏原句（可修改）':'英文例句（可修改）'}</label><textarea id="lookup-example-edit" rows="3" maxlength="6000" placeholder="填写完整英文例句">${esc(values.example)}</textarea><label for="lookup-example-zh-edit">例句中文译文（可修改）</label><textarea id="lookup-example-zh-edit" class="lookup-example-translation" rows="3" maxlength="6000" placeholder="填写与上面英文完整对应的中文译文">${esc(values.exampleZh)}</textarea>${!values.example||!values.exampleZh?'<p class="lookup-message">这组例句尚未配齐，请补充英文例句和对应中文译文后保存。</p>':`<p class="text-note">${esc(c.exampleSource||'个人填写')}</p>`}${suggestion&&(textKey(suggestion.example)!==textKey(values.example)||!values.exampleZh)?`<details ${suggestion.rank?'open':''}><summary>${suggestion.rank?'课程学习例句':'原文语境'}</summary>${bilingualMarkup(suggestion,'lookup-suggestion-'+c.word,'lookup-example-translation')}<button class="small-button" data-word-action="use-example">使用这组双语例句</button></details>`:''}${c.captured?.example&&textKey(c.captured.example)!==textKey(values.example)?`<details><summary>保留的选词原句</summary><p class="word-example-small">${esc(c.captured.example)}</p>${c.captured.exampleZh?`<p class="word-context-translation">${esc(c.captured.exampleZh)}</p>`:'<p class="text-note">这条原句的逐句译文待补充；不会用整段中文代替。</p>'}</details>`:''}${pronunciationExampleMarkup(c.word,'lookup-recording-'+c.word)}<div class="lookup-pronunciation-status" role="status"></div><div class="lookup-actions"><button class="primary-button" data-word-action="save" ${c.loading?'disabled':''}>${entry?'保存释义与双语例句':'加入生词本'}</button><button class="small-button" data-word-action="speak" >${pronunciationLabel(c.word,pronunciationPos(c.word,c.lessonId))}</button></div><button class="text-button" data-word-action="notebook">打开生词本${Object.keys(saved.personalWords).length?'（'+Object.keys(saved.personalWords).length+'）':''}</button>`;
     restoreLearningFocus(focusBefore,box);
   }
   async function open(word,example='',rect=null,lessonId=null,origin=null,options={}){
@@ -122,11 +151,18 @@ window.WordNotebook=(()=>{
     const stage=room?steps()[stepIndex]:null,card=stage?.id==='vocabulary'?cardsForDay()[wordIndex]:null;
     if(card&&normalize(example)===w)example=card.example||example;
     const locationId=card?.lessonId||(stage?.id==='vocabulary'?'词卡 '+(day().vocabGroups||[]).join('/'):stage?.id==='warmup'?'今天的开场':stage?.id==='writing'?'写译练习 '+(day().writing?.ids?.[writingIndex]||''):stage&&(stage.kind==='reading'||['listening','reading'].includes(stage.id))?activeLesson:'');
-    const entry=upgradeSaved(w),context=options.contextIndex!==undefined?entry?.contexts?.[options.contextIndex]:null,where=lessonId||context?.lessonId||entry?.lessonId||(example?locationId:''),raw=context?.example||sentence(example,w),exact=exactPair(w,where,raw),pair=findStudyPair(w,where);
+    const known=immediateDefinition(w),entry=upgradeSaved(w,saved.personalWords[w]?.lemma||known?.lemma||''),context=options.contextIndex!==undefined?entry?.contexts?.[options.contextIndex]:null,where=lessonId||context?.lessonId||entry?.lessonId||(example?locationId:''),raw=context?.example||sentence(example,w),exact=exactPair(w,where,raw),pair=findStudyPair(w,where);
     const initial=context||entry||(pair?.rank?pair:exact)||{},initialExample=initial.example||raw,initialZh=initial.exampleZh||exactPair(w,where,initialExample)?.exampleZh||'';
     if(box.hidden){returnFocus=origin||document.activeElement;returnSnapshot=captureLearningFocus(returnFocus)}
-    lastRect=rect;current={word:w,example:initialExample,exampleZh:initialZh,exampleSource:initial.exampleSource||exact?.exampleSource||'',lessonId:where||pair?.lessonId||'',captured:raw?{example:raw,exampleZh:exact?.exampleZh||'',exampleSource:exact?.exampleSource||'收藏原句',lessonId:where,date:day().date}:null,date:day().date,loading:true,drafts:{},editContextIndex:options.contextIndex};const id=++ticket;box.hidden=false;position(rect);draw();box.querySelector('[data-word-action="close"]').focus({preventScroll:true});
-    try{const r=await lookup(w);if(id!==ticket)return;rememberDrafts();current.result=r;current.loading=false;upgradeSaved(w,r?.lemma);const p=findStudyPair(w,current.lessonId,r?.lemma);if(p?.rank&&!current.example&&!current.drafts.example){current.example=p.example;current.exampleZh=p.exampleZh;current.exampleSource=p.exampleSource}draw()}catch(e){if(id!==ticket)return;current.loading=false;current.error=e.message;draw()}
+    const ready=entry?.meaning?{...known,...entry,source:entry.source||known?.source||'生词本'}:known;
+    lastRect=rect;current={word:w,example:initialExample,exampleZh:initialZh,exampleSource:initial.exampleSource||exact?.exampleSource||'',lessonId:where||pair?.lessonId||'',captured:raw?{example:raw,exampleZh:exact?.exampleZh||'',exampleSource:exact?.exampleSource||'收藏原句',lessonId:where,date:day().date}:null,date:day().date,result:ready,loading:!ready,drafts:{},editContextIndex:options.contextIndex};const id=++ticket;box.hidden=false;position(rect);draw();box.querySelector('[data-word-action="close"]').focus({preventScroll:true});
+    if(!ready)await completeLookup(w,id);
+  }
+  async function completeLookup(word,id){
+    try{const r=await lookup(word);if(id!==ticket)return;rememberDrafts();current.result=r;current.loading=false;current.error='';upgradeSaved(word,r?.lemma);const p=findStudyPair(word,current.lessonId,r?.lemma);if(p?.rank&&!current.example&&!current.drafts.example){current.example=p.example;current.exampleZh=p.exampleZh;current.exampleSource=p.exampleSource}draw()}catch(e){if(id!==ticket)return;current.loading=false;current.error=e.message;draw()}
+  }
+  async function retryLookup(){
+    if(!current||current.loading)return;rememberDrafts();current.loading=true;current.error='';draw();await completeLookup(current.word,++ticket);
   }
   function onRender(){
     if(room&&isFullMock()&&!mockReview)return;
@@ -188,7 +224,7 @@ window.WordNotebook=(()=>{
     const mark=e.target.closest('mark.personal-word');if(mark&&window.StudyMarks?.isLookupMode()&&['Enter',' '].includes(e.key)){e.preventDefault();open(mark.dataset.word,contextText(mark.closest('p,.option')),mark.getBoundingClientRect(),null,mark)}
     if(e.target.id==='notebook-lookup'&&e.key==='Enter'){e.preventDefault();open(e.target.value,'',null,null,e.target)}if(e.target.id==='notebook-filter'&&e.key==='Enter'){filter=e.target.value;render()}
   },true);
-  document.addEventListener('click',e=>{const b=e.target.closest('[data-word-action]');if(!b)return;const a=b.dataset.wordAction;if(a==='close')hide();else if(a==='save')save();else if(a==='use-example'){rememberDrafts();const p=current?.suggestion;if(p){current.drafts.example=p.example;current.drafts.exampleZh=p.exampleZh;current.example=p.example;current.exampleZh=p.exampleZh;current.exampleSource=p.exampleSource;current.lessonId=p.lessonId||current.lessonId;draw()}}else if(a==='speak')playHumanLookup(b);else if(a==='notebook'){hide(false);room=false;view='words';audio.pause();$('#audio-dock').hidden=true;render();window.scrollTo(0,0)}else if(a==='lookup-input'){const w=$('#notebook-lookup').value;if(!valid(normalize(w)))toast('请输入英文单词或短语。');else open(w,'',null,null,b)}else if(a==='open')open(b.dataset.word,saved.personalWords[b.dataset.word]?.example,null,saved.personalWords[b.dataset.word]?.lessonId,b);else if(a==='edit-context'){const index=+b.dataset.contextIndex,entry=saved.personalWords[b.dataset.word],c=index<0?entry:resolveEntry(entry,entry.word,entry.lemma).contexts[index];open(b.dataset.word,c?.example||'',null,c?.lessonId||'',b,index<0?{}:{contextIndex:index})}else if(a==='review'){const w=saved.personalWords[b.dataset.word];w.reviewed=!w.reviewed;w.updatedAt=new Date().toISOString();persist();render()}else if(a==='remove'){delete saved.personalWords[b.dataset.word];persist();render();toast('已移出。')}});
+  document.addEventListener('click',e=>{const b=e.target.closest('[data-word-action]');if(!b)return;const a=b.dataset.wordAction;if(a==='close')hide();else if(a==='retry')retryLookup();else if(a==='save')save();else if(a==='use-example'){rememberDrafts();const p=current?.suggestion;if(p){current.drafts.example=p.example;current.drafts.exampleZh=p.exampleZh;current.example=p.example;current.exampleZh=p.exampleZh;current.exampleSource=p.exampleSource;current.lessonId=p.lessonId||current.lessonId;draw()}}else if(a==='speak')playHumanLookup(b);else if(a==='notebook'){hide(false);room=false;view='words';audio.pause();$('#audio-dock').hidden=true;render();window.scrollTo(0,0)}else if(a==='lookup-input'){const w=$('#notebook-lookup').value;if(!valid(normalize(w)))toast('请输入英文单词或短语。');else open(w,'',null,null,b)}else if(a==='open')open(b.dataset.word,saved.personalWords[b.dataset.word]?.example,null,saved.personalWords[b.dataset.word]?.lessonId,b);else if(a==='edit-context'){const index=+b.dataset.contextIndex,entry=saved.personalWords[b.dataset.word],c=index<0?entry:resolveEntry(entry,entry.word,entry.lemma).contexts[index];open(b.dataset.word,c?.example||'',null,c?.lessonId||'',b,index<0?{}:{contextIndex:index})}else if(a==='review'){const w=saved.personalWords[b.dataset.word];w.reviewed=!w.reviewed;w.updatedAt=new Date().toISOString();persist();render()}else if(a==='remove'){delete saved.personalWords[b.dataset.word];persist();render();toast('已移出。')}});
   document.addEventListener('change',e=>{if(e.target.id==='notebook-filter'){filter=e.target.value;render()}});
   document.addEventListener('click',e=>{if(e.target.closest('[data-view],[data-action="step"],[data-action="next-step"],[data-action="exit-room"]'))hide(false)});
   const reposition=()=>{if(!box.hidden)position(lastRect)};window.addEventListener('resize',reposition);window.visualViewport?.addEventListener('resize',reposition);window.visualViewport?.addEventListener('scroll',reposition);
