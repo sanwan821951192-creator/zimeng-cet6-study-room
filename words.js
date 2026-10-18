@@ -3,13 +3,15 @@
 window.WordNotebook=(()=>{
   const normalize=w=>String(w||'').trim().replace(/[’‘]/g,"'").toLowerCase();
   const valid=w=>/^[a-z][a-z'-]*(?: [a-z][a-z'-]*){0,3}$/.test(w)&&w.length<=70;
-  const local=new Map(),loads=new Map(),pairs=[],pairKeys=new Set(),tokenPairs=new Map(),formPairs=new Map(),studyPairs=new Map(),matchCache=new Map(),dictionaryCache=new Map();let current=null,ticket=0,filter='',returnFocus=null,returnSnapshot=null,lastRect=null;
+  const local=new Map(),loads=new Map(),pairs=[],pairKeys=new Set(),tokenPairs=new Map(),formPairs=new Map(),studyPairs=new Map(),matchCache=new Map(),dictionaryCache=new Map(),indexedLessons=new Set();
+  const lessonOrder=new Map(Object.keys(lessonBank).map((id,index)=>[id,index]));
+  let nextPairOrder=null,current=null,ticket=0,filter='',returnFocus=null,returnSnapshot=null,lastRect=null;
   const textKey=t=>String(t||'').replace(/\s+/g,' ').trim();
   function indexPair(index,key,pair){if(!index.has(key))index.set(key,new Set());index.get(key).add(pair);}
   function addPair(example,exampleZh,lessonId='',exampleSource='原文例句',forms=[],date='',rank=0){
     if(!example||!exampleZh||example.length>6000||exampleZh.length>6000)return;
     const normalizedText=textKey(example),key=JSON.stringify([lessonId,normalizedText,exampleZh,date]);if(pairKeys.has(key))return;pairKeys.add(key);
-    const pair={example,exampleZh,lessonId,exampleSource,forms:forms.map(normalize).filter(Boolean),date,rank,normalizedText,order:pairs.length};pairs.push(pair);
+    const pair={example,exampleZh,lessonId,exampleSource,forms:forms.map(normalize).filter(Boolean),date,rank,normalizedText,order:nextPairOrder===null?pairs.length:nextPairOrder++};pairs.push(pair);
     for(const token of new Set(example.toLowerCase().match(/[a-z]+/g)||[]))indexPair(tokenPairs,token,pair);
     for(const form of pair.forms){indexPair(formPairs,form,pair);if(rank)indexPair(studyPairs,form,pair);}
   }
@@ -20,7 +22,9 @@ window.WordNotebook=(()=>{
   }
   for(const [date,g] of Object.entries(content.dailyVocabulary||{}))for(const c of g.cards||[])addCard(c,c.lessonId,date);
   for(const [id,g] of Object.entries(content.vocabulary||{}))for(const c of g.cards||[])addCard(c,id);
-  for(const [id,l] of Object.entries(lessonBank)){
+  function indexLesson(id,l){
+    if(indexedLessons.has(id)||window.StudyLoader&&!window.StudyLoader.isLessonReady(id))return;
+    indexedLessons.add(id);const previousOrder=nextPairOrder;nextPairOrder=1000000+(lessonOrder.get(id)||0)*10000;
     for(const w of l.vocabulary||[]){if(w.meaning||w.zh){if(!local.has(normalize(w.word)))local.set(normalize(w.word),{meaning:w.meaning||w.zh,source:'课文词汇'});addCard(w,id)}}
     for(const p of l.paragraphs||l.transcriptParagraphs||[])addPair(p.text,p.zh,id,'原文语境');
     for(const q of l.questions||[]){
@@ -28,8 +32,13 @@ window.WordNotebook=(()=>{
       for(const [letter,text] of Object.entries(q.options||{}))addPair(text,q.optionsZh?.[letter],id,'选项原句');
       for(const e of q.teaching?.evidence||[])addPair(e.text,e.zh,id,'原文例句');
     }
+    nextPairOrder=previousOrder;matchCache.clear();
   }
+  for(const [id,l] of Object.entries(lessonBank))indexLesson(id,l);
+  window.StudyLoader?.onLessons(additions=>{for(const [id,lesson] of Object.entries(additions))indexLesson(id,lesson);});
+  nextPairOrder=1000000+lessonOrder.size*10000;
   if(typeof days!=='undefined')for(const d of days)addPair(d.interestSnippet?.english,d.interestSnippet?.chinese,'今天的开场','双语开场',[],d.date);
+  nextPairOrder=null;
   function matchingPairs(word){
     if(matchCache.has(word))return matchCache.get(word);
     const token=word.match(/^[a-z]+/)?.[0],candidates=new Set([...(tokenPairs.get(token)||[]),...(formPairs.get(word)||[])]);
@@ -70,6 +79,7 @@ window.WordNotebook=(()=>{
   const box=document.createElement('section');box.id='word-lookup';box.hidden=true;box.setAttribute('role','dialog');box.setAttribute('aria-modal','true');box.setAttribute('aria-label','查词与加入生词本');box.innerHTML='<div class="lookup-top"><b>选词查询</b><button type="button" data-word-action="close" aria-label="关闭查词">×</button></div><div id="lookup-body" aria-live="polite"></div>';document.body.append(box);
   function bucket(word){let h=2166136261;for(let i=0;i<word.length;i++)h=Math.imul(h^word.charCodeAt(i),16777619);return (h&127).toString(16).padStart(2,'0');}
   function dictionaryEntry(word){
+    const course=window.CET_COURSE_DICTIONARY;if(course&&Object.hasOwn(course,word)){const r=course[word];return{meaning:r[0],phonetic:r[1]||'',tag:r[2]||'',...(r[3]?{lemma:r[3]}:{})};}
     const old=window.CET_DICTIONARY_SHARDS?.[word[0]];if(old&&Object.hasOwn(old,word))return old[word];
     const data=window.CET_DICTIONARY_FAST?.[bucket(word)];if(!data||!Object.hasOwn(data,word))return null;
     const r=data[word];return{meaning:r[0],phonetic:r[1],tag:r[2],...(r[3]?{lemma:r[3]}:{})};
@@ -84,9 +94,17 @@ window.WordNotebook=(()=>{
     });loads.set(key,request);return request;
   }
   function immediateDefinition(w){if(local.has(w))return{...local.get(w),word:w};if(dictionaryCache.has(w))return dictionaryCache.get(w);const r=dictionaryEntry(w);return r?{...r,word:w,source:'ECDICT本地词典'}:null;}
+  window.StudyLoader?.onDictionary(()=>{
+    if(!current?.loading)return;const ready=immediateDefinition(current.word);
+    if(!ready&&!window.CET_COURSE_MISSING?.has(current.word))return;
+    rememberDrafts();ticket++;current.result=ready;current.loading=false;current.error='';
+    const p=findStudyPair(current.word,current.lessonId,ready?.lemma);
+    if(p?.rank&&!current.example&&!current.drafts.example){current.example=p.example;current.exampleZh=p.exampleZh;current.exampleSource=p.exampleSource;}
+    draw();
+  });
   async function lookup(word){
     const w=normalize(word);if(!valid(w))return null;
-    let r=immediateDefinition(w);if(!r){await shard(w);const row=dictionaryEntry(w);if(!row)return null;r={...row,word:w,source:'ECDICT本地词典'};dictionaryCache.set(w,r);}
+    let r=immediateDefinition(w);if(!r){if(window.CET_COURSE_MISSING?.has(w)||w.includes(' '))return null;await shard(w);const row=dictionaryEntry(w);if(!row)return null;r={...row,word:w,source:'ECDICT本地词典'};dictionaryCache.set(w,r);}
     // A second network request for the lemma must never hold up the selected word.
     if(r.lemma&&r.lemma!==w){const base=dictionaryEntry(r.lemma);if(base&&!r.meaning.includes('\n\n原形 '))r={...r,meaning:r.meaning+'\n\n原形 '+r.lemma+'：\n'+base.meaning};}
     const p=findStudyPair(w,current?.lessonId||'',r.lemma);return{...r,...(p?{example:p.example,exampleZh:p.exampleZh,exampleSource:p.exampleSource}:{})};
@@ -155,8 +173,21 @@ window.WordNotebook=(()=>{
     const initial=context||entry||(pair?.rank?pair:exact)||{},initialExample=initial.example||raw,initialZh=initial.exampleZh||exactPair(w,where,initialExample)?.exampleZh||'';
     if(box.hidden){returnFocus=origin||document.activeElement;returnSnapshot=captureLearningFocus(returnFocus)}
     const ready=entry?.meaning?{...known,...entry,source:entry.source||known?.source||'生词本'}:known;
-    lastRect=rect;current={word:w,example:initialExample,exampleZh:initialZh,exampleSource:initial.exampleSource||exact?.exampleSource||'',lessonId:where||pair?.lessonId||'',captured:raw?{example:raw,exampleZh:exact?.exampleZh||'',exampleSource:exact?.exampleSource||'收藏原句',lessonId:where,date:day().date}:null,date:day().date,result:ready,loading:!ready,drafts:{},editContextIndex:options.contextIndex};const id=++ticket;box.hidden=false;position(rect);draw();box.querySelector('[data-word-action="close"]').focus({preventScroll:true});
+    lastRect=rect;current={word:w,example:initialExample,exampleZh:initialZh,exampleSource:initial.exampleSource||exact?.exampleSource||'',lessonId:where||pair?.lessonId||'',captured:raw?{example:raw,exampleZh:exact?.exampleZh||'',exampleSource:exact?.exampleSource||'收藏原句',lessonId:where,date:day().date}:null,date:day().date,result:ready,loading:!ready&&!window.CET_COURSE_MISSING?.has(w)&&!w.includes(' '),drafts:{},editContextIndex:options.contextIndex};const opened=current,id=++ticket;box.hidden=false;position(rect);draw();box.querySelector('[data-word-action="close"]').focus({preventScroll:true});
     if(!ready)await completeLookup(w,id);
+    if(current!==opened)return;
+    const contextLessons=[...new Set([where,...(entry?.contexts||[]).map(c=>c.lessonId)].filter(lid=>lessonBank[lid]&&window.StudyLoader&&!window.StudyLoader.isLessonReady(lid)))];
+    if(contextLessons.length)window.StudyLoader.ensureLessons(contextLessons).then(()=>{
+      if(current!==opened)return;rememberDrafts();const updated=upgradeSaved(w,current.result?.lemma),p=findStudyPair(w,current.lessonId,current.result?.lemma);
+      if(!current.drafts.exampleZh&&updated?.exampleZh&&textKey(updated.example)===textKey(current.example))current.exampleZh=updated.exampleZh;
+      if(p?.rank&&!current.example&&!current.drafts.example){current.example=p.example;current.exampleZh=p.exampleZh;current.exampleSource=p.exampleSource;}draw();
+    }).catch(()=>{});
+    if(!where&&!findStudyPair(w,'',current.result?.lemma)?.rank&&window.StudyLoader){
+      window.StudyLoader.warmDictionary().then(()=>{
+        if(current!==opened)return;const source=window.StudyLoader.lessonForWord(w,current.result?.lemma);
+        return source?window.StudyLoader.ensureLessons([source]).then(()=>{if(current!==opened)return;rememberDrafts();upgradeSaved(w,current.result?.lemma);draw();}):null;
+      }).catch(()=>{});
+    }
   }
   async function completeLookup(word,id){
     try{const r=await lookup(word);if(id!==ticket)return;rememberDrafts();current.result=r;current.loading=false;current.error='';upgradeSaved(word,r?.lemma);const p=findStudyPair(word,current.lessonId,r?.lemma);if(p?.rank&&!current.example&&!current.drafts.example){current.example=p.example;current.exampleZh=p.exampleZh;current.exampleSource=p.exampleSource}draw()}catch(e){if(id!==ticket)return;current.loading=false;current.error=e.message;draw()}
@@ -200,6 +231,7 @@ window.WordNotebook=(()=>{
     if(typeof showPronunciationExample==='function')showPronunciationExample(word);
   }
   function renderNotebook(){
+    window.StudyLoader?.warmDictionary();
     const entries=Object.values(saved.personalWords).sort((a,b)=>String(b.updatedAt).localeCompare(String(a.updatedAt))),shown=entries.filter(w=>(w.word+' '+w.meaning).toLowerCase().includes(filter.toLowerCase()));
     function article(original){
       const w=resolveEntry(original,original.word,original.lemma),study=findStudyPair(w.word,w.lessonId,w.lemma),primary=study?.rank?study:w.example&&w.exampleZh?w:w.contexts.find(c=>c.example&&c.exampleZh),other=w.contexts.map((c,index)=>({...c,index})).filter(c=>c.example&&(!primary||textKey(c.example)!==textKey(primary.example)||c.exampleZh!==primary.exampleZh));

@@ -11,6 +11,7 @@ let saved=readStore();
 const pendingListeningDrafts=new Set();
 saved.exerciseWords=saved.exerciseWords||{};saved.lessonResults=saved.lessonResults||{};
 const lessonBank={...content.inlineLessons,...DATA.lessons};
+window.StudyLoader?.bind(lessonBank);
 const clipBank=DATA.clips||{};
 const openPanels={};let activeLesson=null,mockReview=false,renderedViewKey=null;
 let practiceMode='exercise';
@@ -20,6 +21,7 @@ const today=`${dateParts.year}-${dateParts.month}-${dateParts.day}`;
 let selected=days.find(d=>d.date===today)?.date||days[0].date;
 if(today>days.at(-1).date)selected=days.at(-1).date;
 let view='today',room=false,stepIndex=0,wordIndex=0,showMeaning=false,qIndex=0,paraIndex=0;
+let materialLoadTicket=0,materialWaitKey='',materialLoadError='';
 let revealAnswer=false,revealPrompt=false,difficulty='正好',writingIndex=0,showReference=false;
 let timerLeft=0,timerEnd=null,timerRunning=false;
 let audioId=null,pointA=null,pointB=null,loopOn=false;
@@ -62,6 +64,18 @@ function restoreLearningFocus(snapshot,root=$('#app')){
   if(Number.isInteger(snapshot.start)&&target.setSelectionRange)try{target.setSelectionRange(snapshot.start,snapshot.end)}catch{}
   return true;
 }
+function materialsReadyForRender(){
+  const loader=window.StudyLoader;
+  const ids=room?[...new Set([...(loader?.lessonsForDay(selected)||[]),...(activeLesson&&lessonBank[activeLesson]?[activeLesson]:[])])]:[];
+  if(!loader||loader.isReady(ids)){if(materialWaitKey){materialWaitKey='';materialLoadError='';materialLoadTicket++;}return true;}
+  const key=selected+'|'+view+'|'+room+'|'+ids.join(',');
+  if(materialWaitKey!==key){
+    materialWaitKey=key;materialLoadError='';const id=++materialLoadTicket;
+    loader.ensureLessons(ids).then(()=>{if(id===materialLoadTicket){materialWaitKey='';materialLoadError='';render();}}).catch(error=>{if(id===materialLoadTicket){materialLoadError=error.message;render();}});
+  }
+  $('#app').innerHTML=`<section class="empty-note"><h1 class="view-title">${pretty(selected)}的学习材料</h1><p role="${materialLoadError?'alert':'status'}">${esc(materialLoadError||'正在准备当天的题目和词义…')}</p>${materialLoadError?'<button class="primary-button" data-action="material-retry">重试加载</button>':''}<button class="text-button" data-action="material-return">返回今日学习</button></section>`;
+  return false;
+}
 function render(){
   const focusBefore=captureLearningFocus();
   const viewKey=selected+'-'+view+'-'+room+'-'+(room?stepIndex:'');
@@ -70,6 +84,7 @@ function render(){
   document.body.classList.toggle('listening-exercise',listeningExercise);
   document.querySelectorAll('[data-view]').forEach(b=>{const active=b.dataset.view===view;b.classList.toggle('active',active);if(active)b.setAttribute?.('aria-current','page');else b.removeAttribute?.('aria-current')});
   $('#top-label').textContent=dateFull(day());
+  if(!materialsReadyForRender())return;
   $('#app').innerHTML=(room?renderRoom():view==='today'?renderToday():view==='plan'?renderPlan():view==='progress'?renderProgress():view==='words'?((window.WordNotebook?.render()||'')+knownWordsPanel()):renderLibrary())+renderQuestionWindow();
   updateTimerDisplay();
   window.StudyMarks?.onRender();
@@ -298,7 +313,7 @@ function renderWriting(){const w=day().writing;if(!w)return '';if(w.paper)return
   return `${window.StudyMarks?.controls()||''}<div class="question-tabs">${ids.map((x,i)=>`<button class="question-tab ${i===writingIndex?'active':''}" data-action="writing-tab" data-index="${i}">${x} ${esc((content.writing[x]||content.translation[x])?.title||'')}</button>`).join('')}</div><p class="${id.startsWith('W')?'writing-prompt':'translation-prompt'}">${esc(item.prompt)}</p>${item.promptZh?panel(id+'-prompt-zh','显示题目中文',`<p>${esc(item.promptZh)}</p>`):''}<textarea class="draft-input" data-draft-key="${id}" id="writing-draft" placeholder="输入英文作文或译文">${esc(draft)}</textarea><div class="lesson-links"><span id="word-count" class="text-note">${id.startsWith('W')?`当前约${draft.trim()?draft.trim().split(/\s+/).length:0}个英文词`:''}</span><button class="small-button" data-action="reference">${showReference?'收起参考':'写完再看参考与检查点'}</button></div>${showReference?`<div class="answer-box reference-content">${markdown(item.referenceMarkdown)}</div>`:''}`;
 }
 function reflectionForm(){const r=saved.records[day().date]||{};difficulty=r.difficulty||difficulty;return `<div class="reflection"><label>今天的感受</label><div class="difficulty-options">${['轻松','正好','有点累'].map(x=>`<button class="difficulty ${difficulty===x?'active':''}" data-action="difficulty" data-value="${x}">${x}</button>`).join('')}</div><label for="reflection-note">收获与卡点</label><textarea id="reflection-note" placeholder="今天的收获或笔记">${esc(saved.notes[day().date]??r.note??'')}</textarea><div class="inline-fields"><div><label for="actual-minutes">实际学习分钟（可留空）</label><input id="actual-minutes" type="number" min="0" max="600" value="${esc(r.minutes??'')}" placeholder="例如45"></div><div><label for="lesson-status">今天完成情况</label><select id="lesson-status"><option ${r.status==='完成'?'selected':''}>完成</option><option ${r.status==='部分完成'?'selected':''}>部分完成</option><option ${r.status==='调整或休息'?'selected':''}>调整或休息</option></select></div></div></div>`}
-function setDay(value){if(!days.some(d=>d.date===value))return;stopWordPronunciation();audio.pause();$('#audio-dock').hidden=true;selected=value;room=false;view='today';resetRoomState();render();window.scrollTo(0,0)}
+function setDay(value){if(!days.some(d=>d.date===value))return;stopWordPronunciation();audio.pause();$('#audio-dock').hidden=true;selected=value;room=false;view='today';resetRoomState();render();window.StudyLoader?.warmDay(selected);window.scrollTo(0,0)}
 function resetRoomState(){practiceMode='exercise';activeLesson=null;mockReview=false;stepIndex=0;wordIndex=0;qIndex=0;paraIndex=0;showMeaning=false;revealAnswer=false;revealPrompt=false;writingIndex=0;showReference=false;timerRunning=false;timerEnd=null;timerLeft=steps()[0].minutes*60}
 function goStep(n){stopWordPronunciation();practiceMode='exercise';activeLesson=null;stepIndex=Math.max(0,Math.min(n,steps().length-1));wordIndex=0;showMeaning=false;qIndex=0;paraIndex=0;revealAnswer=false;revealPrompt=false;writingIndex=0;showReference=false;timerRunning=false;timerEnd=null;timerLeft=steps()[stepIndex].minutes*60;audio.pause();$('#audio-dock').hidden=true;render();window.scrollTo(0,0)}
 function fmt(secs){secs=Math.max(0,Math.round(+secs||0));return `${String(Math.floor(secs/60)).padStart(2,'0')}:${String(secs%60).padStart(2,'0')}`}
@@ -395,7 +410,9 @@ document.addEventListener('change',e=>{if(e.target.dataset.answerKey){saved.answ
 document.addEventListener('input',e=>{if(e.target.dataset.listeningScratchKey){writeListeningScratch(e.target.dataset.listeningScratchKey,e.target.value);return}if(e.target.id==='reflection-note'){saved.notes[day().date]=e.target.value;persist()}if(e.target.dataset.draftKey){saved.drafts[day().date+'-'+e.target.dataset.draftKey]=e.target.value;persist();const c=$('#word-count');if(c)c.textContent=`当前约${e.target.value.trim()?e.target.value.trim().split(/\s+/).length:0}个英文词`}});
 document.addEventListener('change',e=>{if(e.target.id==='date-select')setDay(e.target.value)});
 document.addEventListener('click',e=>{const btn=e.target.closest('[data-action],[data-view]');if(!btn)return;const a=btn.dataset.action;if(btn.dataset.view||['home','start','start-step','exit-room','next-word','prev-word','known-word','lesson'].includes(a))stopWordPronunciation();if(btn.dataset.view){view=btn.dataset.view;room=false;timerRunning=false;audio.pause();$('#audio-dock').hidden=true;render();window.scrollTo(0,0);return}if(btn.tagName==='A'&&btn.getAttribute('href')==='#')e.preventDefault();
-  if(a==='listening-scratch-retry'){persist();updateListeningScratchStatus();return}
+  if(a==='material-retry'){materialWaitKey='';materialLoadError='';render();return}
+  else if(a==='material-return'){room=false;view='today';render();return}
+  else if(a==='listening-scratch-retry'){persist();updateListeningScratchStatus();return}
   else if(a==='listening-scratch-use-version'){useListeningScratchVersion(btn.dataset.key,+btn.dataset.index);return}
   else if(a==='home'){room=false;view='today';timerRunning=false;audio.pause();$('#audio-dock').hidden=true;render();window.scrollTo(0,0)}
   else if(a==='choose-day')setDay(btn.dataset.date);
@@ -457,3 +474,5 @@ document.addEventListener('click',e=>{const btn=e.target.closest('[data-action],
 });
 document.addEventListener('keydown',e=>{if(e.target.closest('.question-window')){if(e.key==='Escape'){e.preventDefault();document.querySelector('[data-action="question-window-close"]')?.click()}return}if(e.defaultPrevented||e.shiftKey||e.target.matches('input,textarea,select,[contenteditable="true"]')||$('#dialog').open||e.target.closest('#word-lookup,#mark-tools-popover'))return;if(room&&e.key==='ArrowRight'){e.preventDefault();if(stepIndex<steps().length-1)goStep(stepIndex+1)}if(room&&e.key==='ArrowLeft'){e.preventDefault();if(stepIndex>0)goStep(stepIndex-1)}});
 resetRoomState();render();
+window.StudyLoader?.warmDay(selected);
+setTimeout(()=>window.StudyLoader?.warmDictionary(),15000);
