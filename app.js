@@ -27,6 +27,11 @@ let timerLeft=0,timerEnd=null,timerRunning=false;
 let audioId=null,pointA=null,pointB=null,loopOn=false;
 const audio=$('#global-audio');
 const audioDock=$('#audio-dock');
+const clipPlayer=window.ListeningClipPlayer?.create(audio,{
+  onEnd:()=>{$('#audio-status').textContent='本题片段已播完 · 点击播放器可重听';},
+  onError:()=>toast('请点击播放器中的播放按钮重听。')
+});
+function stopListeningAudio(){if(clipPlayer)clipPlayer.cancel();else audio.pause();}
 if(window.ResizeObserver){const dockSizeObserver=new window.ResizeObserver(()=>{if(!audioDock.hidden){const height=audioDock.getBoundingClientRect().height;if(height>0)document.documentElement.style.setProperty('--audio-height',Math.ceil(height)+'px')}});dockSizeObserver.observe(audioDock)}
 const day=()=>days.find(d=>d.date===selected)||days[0];
 const isFullMock=(d=day())=>['mock','mockPractice'].includes(d.mode);
@@ -158,18 +163,30 @@ function listeningIds(d=day()){
   return String(t.paper).split('/').flatMap(p=>parts.filter(x=>!ranges.length||ranges.some(([a,b])=>x[1]<=b&&x[2]>=a)).map(x=>p+'-'+x[0]));
 }
 function inlineFor(kind,id){const ids=kind==='listening'?listeningIds():(day().reading?.items||[]).map(x=>x.lessonId);return lessonBank[id||activeLesson]||lessonBank[ids[0]]||null;}
+function questionAudioRange(id,number,part){
+  if(!['question','evidence'].includes(part))return null;
+  if(window.LISTENING_QUESTION_AUDIO_V1?.version!==1)return null;
+  const clip=clipBank[id],mapped=window.LISTENING_QUESTION_AUDIO_V1?.clips?.[id];
+  if(!clip||mapped?.file!==clip.file||!Number.isFinite(mapped.duration)||Math.abs(mapped.duration-clip.duration)>.05)return null;
+  const range=mapped.questions?.[number]?.[part];
+  return range&&Number.isFinite(range.start)&&Number.isFinite(range.end)&&range.start>=0&&range.end>range.start&&range.end<=clip.duration?range:null;
+}
+function listeningQuestionAudio(q,lesson,studying){
+  if(lesson.kind!=='listening'||!clipPlayer||(isFullMock()&&!mockReview))return '';
+  const button=(part,label)=>questionAudioRange(lesson.id,q.number,part)?`<button class="small-button" data-action="question-audio" data-id="${esc(lesson.id)}" data-number="${q.number}" data-part="${part}" aria-label="第${q.number}题${label}">${label}</button>`:'';
+  return `<div class="question-audio-actions" role="group" aria-label="第${q.number}题分题原声">${button('question','听本题问题')}${studying?button('evidence','听答案依据'):''}</div>`;
+}
 function listeningTeaching(q,lesson){
   if(lesson.kind!=='listening')return '';
   const t=q.teaching;if(!t)return '<p>'+esc(q.explanation||'请对照本段原音与完整原文核对。')+'</p>'+checkingClues(q);
   const base=day().date+'-'+lesson.id+'-'+q.number;
-  return `<section class="listening-teaching"><p><b>听前关注：</b>${esc(t.focus)}</p><h4>原文证据</h4>${t.evidence.map((e,i)=>`<div class="evidence-card"><p class="passage-text">${esc(e.text)}</p>${panel(base+'-evidence-'+i,'显示证据句中文',`<p>${esc(e.zh)}</p>`)}<a class="text-button" href="#transcript-${esc(lesson.id)}-${e.paragraph}" data-action="evidence-source" data-id="${esc(lesson.id)}" data-paragraph="${e.paragraph}">在完整原文中定位</a></div>`).join('')}${t.audio?`<button class="small-button evidence-play" data-action="evidence-audio" data-id="${esc(lesson.id)}" data-start="${t.audio.start}" data-end="${t.audio.end}">回听本题依据 · ${fmt(t.audio.start)}–${fmt(t.audio.end)}</button>`:''}<h4>原文怎样变成答案</h4><p>${esc(t.mapping)}</p><p>${esc(t.reason)}</p><h4>其他选项为什么不选</h4><div class="distractor-list">${Object.entries(t.distractors).map(([letter,reason])=>`<p><b>${esc(letter)}.</b> ${esc(reason)}</p>`).join('')}</div><p class="listening-drill"><b>再练一次：</b>${esc(t.tip)}</p></section>`;
+  return `<section class="listening-teaching"><p><b>听前关注：</b>${esc(t.focus)}</p><h4>原文证据</h4>${t.evidence.map((e,i)=>`<div class="evidence-card"><p class="passage-text">${esc(e.text)}</p>${panel(base+'-evidence-'+i,'显示证据句中文',`<p>${esc(e.zh)}</p>`)}<a class="text-button" href="#transcript-${esc(lesson.id)}-${e.paragraph}" data-action="evidence-source" data-id="${esc(lesson.id)}" data-paragraph="${e.paragraph}">在完整原文中定位</a></div>`).join('')}<h4>原文怎样变成答案</h4><p>${esc(t.mapping)}</p><p>${esc(t.reason)}</p><h4>其他选项为什么不选</h4><div class="distractor-list">${Object.entries(t.distractors).map(([letter,reason])=>`<p><b>${esc(letter)}.</b> ${esc(reason)}</p>`).join('')}</div><p class="listening-drill"><b>再练一次：</b>${esc(t.tip)}</p></section>`;
 }
 function checkingClues(q){
   return q.checkingClues?.length?'<div class="source-checking-clues"><h4>辅助定位句</h4>'+q.checkingClues.map(text=>'<p class="passage-text">'+esc(text)+'</p>').join('')+'<p class="text-note">请结合完整上下文核对题干与选项。</p></div>':'';
 }
 function questionBlock(q,lesson,exam=false){
   const key=day().date+'-'+lesson.id+'-'+q.number,choice=saved.answers[key];
-  const questionTime=clipBank[lesson.id]?.questionTimes?.[q.number];
   const options=q.options||{};
   let rendered=Object.entries(options).map(([letter,text])=>`<button class="option ${choice===letter?'selected':''}" data-action="option" data-key="${esc(key)}" data-letter="${esc(letter)}" aria-pressed="${choice===letter}"><strong>${esc(letter)}</strong><span>${esc(text)}</span></button>`).join('');
   if(lesson.readingType==='matching')rendered=`<div class="letter-options">${(lesson.paragraphs||[]).map((x,i)=>x.label||String.fromCharCode(65+i)).map(letter=>`<button class="letter-option ${choice===letter?'selected':''}" data-action="option" data-key="${esc(key)}" data-letter="${esc(letter)}" aria-pressed="${choice===letter}">${esc(letter)}</button>`).join('')}</div>`;
@@ -178,7 +195,7 @@ function questionBlock(q,lesson,exam=false){
   const result=saved.lessonResults[day().date+'-'+lesson.id];
   const answer=`<b>参考答案：${esc(q.answer)}</b>${lesson.kind==='listening'?listeningTeaching(q,lesson):`<p>${esc(q.explanation||'请回到原文，圈出与答案一致的依据。')}</p>${checkingClues(q)}`}${q.answerNote?`<p class="text-note">${esc(q.answerNote)}</p>`:''}`;
   const cloze=lesson.readingType==='cloze';
-  return `<article class="question-block ${cloze?'cloze-explanation':''}" id="${cloze?'explanation':'question'}-${esc(lesson.id)}-${q.number}"><div class="question-head"><h3>第${q.number}${cloze?'空':'题'}</h3>${lesson.kind==='reading'&&!cloze?`<button class="small-button pin-question" data-action="pin-question" data-id="${esc(lesson.id)}" data-number="${q.number}" aria-label="固定第${q.number}题">固定题目</button>`:''}${!exam&&questionTime!==undefined?`<button class="small-button" data-action="question-audio" data-id="${esc(lesson.id)}" data-time="${+questionTime}">听本题问题</button>`:''}</div>${!cloze&&(!exam||lesson.kind!=='listening')?`<p class="question-prompt">${esc(q.prompt)}</p>`:''}${rendered}${!exam?panel(key+'-zh','显示题目与选项中文',zh||'<p>请参照文段和词库的中文。</p>'):''}${!exam?panel(key+'-answer','核对本题答案与依据',answer,'answer-panel',true):''}${!exam?questionReflection(q,lesson):''}${result&&!exam?`<p class="result-line">${choice===q.answer?'✓ 本题答对':choice?'本题需订正':'本题未作答'}</p>`:''}</article>`;
+  return `<article class="question-block ${cloze?'cloze-explanation':''}" id="${cloze?'explanation':'question'}-${esc(lesson.id)}-${q.number}"><div class="question-head"><h3>第${q.number}${cloze?'空':'题'}</h3>${lesson.kind==='reading'&&!cloze?`<button class="small-button pin-question" data-action="pin-question" data-id="${esc(lesson.id)}" data-number="${q.number}" aria-label="固定第${q.number}题">固定题目</button>`:''}</div>${listeningQuestionAudio(q,lesson,!exam)}${!cloze&&(!exam||lesson.kind!=='listening')?`<p class="question-prompt">${esc(q.prompt)}</p>`:''}${rendered}${!exam?panel(key+'-zh','显示题目与选项中文',zh||'<p>请参照文段和词库的中文。</p>'):''}${!exam?panel(key+'-answer','核对本题答案与依据',answer,'answer-panel',true):''}${!exam?questionReflection(q,lesson):''}${result&&!exam?`<p class="result-line">${choice===q.answer?'✓ 本题答对':choice?'本题需订正':'本题未作答'}</p>`:''}</article>`;
 }
 function renderQuestionWindow(){
   const lesson=pinnedQuestion&&lessonBank[pinnedQuestion.lessonId];
@@ -313,9 +330,9 @@ function renderWriting(){const w=day().writing;if(!w)return '';if(w.paper)return
   return `${window.StudyMarks?.controls()||''}<div class="question-tabs">${ids.map((x,i)=>`<button class="question-tab ${i===writingIndex?'active':''}" data-action="writing-tab" data-index="${i}">${x} ${esc((content.writing[x]||content.translation[x])?.title||'')}</button>`).join('')}</div><p class="${id.startsWith('W')?'writing-prompt':'translation-prompt'}">${esc(item.prompt)}</p>${item.promptZh?panel(id+'-prompt-zh','显示题目中文',`<p>${esc(item.promptZh)}</p>`):''}<textarea class="draft-input" data-draft-key="${id}" id="writing-draft" placeholder="输入英文作文或译文">${esc(draft)}</textarea><div class="lesson-links"><span id="word-count" class="text-note">${id.startsWith('W')?`当前约${draft.trim()?draft.trim().split(/\s+/).length:0}个英文词`:''}</span><button class="small-button" data-action="reference">${showReference?'收起参考':'写完再看参考与检查点'}</button></div>${showReference?`<div class="answer-box reference-content">${markdown(item.referenceMarkdown)}</div>`:''}`;
 }
 function reflectionForm(){const r=saved.records[day().date]||{};difficulty=r.difficulty||difficulty;return `<div class="reflection"><label>今天的感受</label><div class="difficulty-options">${['轻松','正好','有点累'].map(x=>`<button class="difficulty ${difficulty===x?'active':''}" data-action="difficulty" data-value="${x}">${x}</button>`).join('')}</div><label for="reflection-note">收获与卡点</label><textarea id="reflection-note" placeholder="今天的收获或笔记">${esc(saved.notes[day().date]??r.note??'')}</textarea><div class="inline-fields"><div><label for="actual-minutes">实际学习分钟（可留空）</label><input id="actual-minutes" type="number" min="0" max="600" value="${esc(r.minutes??'')}" placeholder="例如45"></div><div><label for="lesson-status">今天完成情况</label><select id="lesson-status"><option ${r.status==='完成'?'selected':''}>完成</option><option ${r.status==='部分完成'?'selected':''}>部分完成</option><option ${r.status==='调整或休息'?'selected':''}>调整或休息</option></select></div></div></div>`}
-function setDay(value){if(!days.some(d=>d.date===value))return;stopWordPronunciation();audio.pause();$('#audio-dock').hidden=true;selected=value;room=false;view='today';resetRoomState();render();window.StudyLoader?.warmDay(selected);window.scrollTo(0,0)}
+function setDay(value){if(!days.some(d=>d.date===value))return;stopWordPronunciation();stopListeningAudio();$('#audio-dock').hidden=true;selected=value;room=false;view='today';resetRoomState();render();window.StudyLoader?.warmDay(selected);window.scrollTo(0,0)}
 function resetRoomState(){practiceMode='exercise';activeLesson=null;mockReview=false;stepIndex=0;wordIndex=0;qIndex=0;paraIndex=0;showMeaning=false;revealAnswer=false;revealPrompt=false;writingIndex=0;showReference=false;timerRunning=false;timerEnd=null;timerLeft=steps()[0].minutes*60}
-function goStep(n){stopWordPronunciation();practiceMode='exercise';activeLesson=null;stepIndex=Math.max(0,Math.min(n,steps().length-1));wordIndex=0;showMeaning=false;qIndex=0;paraIndex=0;revealAnswer=false;revealPrompt=false;writingIndex=0;showReference=false;timerRunning=false;timerEnd=null;timerLeft=steps()[stepIndex].minutes*60;audio.pause();$('#audio-dock').hidden=true;render();window.scrollTo(0,0)}
+function goStep(n){stopWordPronunciation();practiceMode='exercise';activeLesson=null;stepIndex=Math.max(0,Math.min(n,steps().length-1));wordIndex=0;showMeaning=false;qIndex=0;paraIndex=0;revealAnswer=false;revealPrompt=false;writingIndex=0;showReference=false;timerRunning=false;timerEnd=null;timerLeft=steps()[stepIndex].minutes*60;stopListeningAudio();$('#audio-dock').hidden=true;render();window.scrollTo(0,0)}
 function fmt(secs){secs=Math.max(0,Math.round(+secs||0));return `${String(Math.floor(secs/60)).padStart(2,'0')}:${String(secs%60).padStart(2,'0')}`}
 function updateTimerDisplay(){const display=$('#timer-display');if(display)display.textContent=fmt(timerLeft);const btn=$('#timer-button');if(btn)btn.textContent=timerRunning?'暂停计时':'开始计时'}
 setInterval(()=>{if(timerRunning){timerLeft=Math.max(0,Math.ceil((timerEnd-Date.now())/1000));if(!timerLeft){timerRunning=false;toast('这一环节的建议时间到了，可以按实际状态继续或进入下一环节。')}updateTimerDisplay()}},500);
@@ -327,14 +344,32 @@ function renderPronunciationExample(word,id){
 function showPronunciationExample(word){const key=String(word).trim().replace(/[’‘]/g,"'").replace(/\s+/g,' ').toLowerCase();document.querySelectorAll('[data-pronunciation-word]').forEach(node=>{if(node.dataset.pronunciationWord===key){node.open=true;if(node.dataset.panel)openPanels[node.dataset.panel]=true}})}
 function stopWordPronunciation(){window.EnglishPronunciation?.stop();window.speechSynthesis?.cancel()}
 function speak(text,allowSynthesis=false,pos=""){if(window.EnglishPronunciation?.play(text,pos)){showPronunciationExample(text);return;}window.EnglishPronunciation?.stop();window.speechSynthesis?.cancel();if(!allowSynthesis){if(window.EnglishPronunciation?.playLookup){toast('正在查找真人录音…');window.EnglishPronunciation.playLookup(text,pos).then(result=>{if(result?.error)toast(result.error);else if(result?.record)showPronunciationExample(text)})}else toast('这个词尚未补齐真人录音。');return}if(!('speechSynthesis' in window)){toast('当前浏览器没有发音功能，可以跟读真题原音。');return}speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='en-US';u.rate=.9;const voices=speechSynthesis.getVoices();const v=voices.find(v=>/Google US English|Microsoft.*(Aria|Jenny|Sonia|Libby).*Online/i.test(v.name))||voices.find(v=>/^en-US/.test(v.lang))||voices.find(v=>/^en/.test(v.lang));if(v)u.voice=v;speechSynthesis.speak(u)}
-function openClip(id,at=0){pointA=pointB=null;loopOn=false;$('#loop-button').textContent='循环关';const c=clipBank[id],l=lessonBank[id];if(!c){toast('本段音频未找到，请使用同套完整录音。');return}if(audioId!==id){audio.pause();audio.src=c.file;audioId=id;pointA=pointB=null;loopOn=false;audio.playbackRate=1;$('#audio-speed').value='1';$('#loop-button').textContent='循环关';audio.load()}const play=()=>{audio.currentTime=Math.max(0,Math.min(at,(audio.duration||Infinity)-.1));audio.play().catch(()=>toast('请点击播放器中的播放按钮。'))};if(audio.readyState>=1)play();else audio.addEventListener('loadedmetadata',play,{once:true});$('#audio-title').textContent=`${id} · ${l?.title||'分段原音'}`;$('#audio-status').textContent='本段全部题目 · '+fmt(c.duration);$('#ab-label').textContent='';$('#audio-dock').hidden=false;}
+function openClip(id,at=0,range=null){
+  const c=clipBank[id],lesson=lessonBank[id];
+  if(!c){toast('本段音频未找到，请使用同套完整录音。');return}
+  if(!clipPlayer){toast('分题播放器尚未载入，请刷新页面后重试。');return}
+  stopWordPronunciation();pointA=range?at:null;pointB=range?.end??null;loopOn=false;$('#loop-button').textContent='循环关';
+  if(audioId!==id){audio.playbackRate=1;$('#audio-speed').value='1';}
+  audioId=id;
+  $('#audio-title').textContent=range?`${id} · 第${range.number}题 · ${range.label}`:`${id} · ${lesson?.title||'分段原音'}`;
+  $('#audio-status').textContent=range?`${range.label}原声 · 播完自动暂停`:'本段全部题目 · '+fmt(c.duration);
+  $('#ab-label').textContent=range?`${fmt(at)}—${fmt(range.end)} · 可点循环反复听`:'';
+  $('#audio-dock').hidden=false;
+  clipPlayer.play({src:c.file,start:at,end:range?.end??null});
+}
+function openQuestionClip(id,number,part){
+  if(isFullMock()&&!mockReview)return;
+  if(part==='evidence'&&practiceMode!=='study'){toast('完成作答后切换到学习模式，再听答案依据。');return}
+  const range=questionAudioRange(id,number,part);
+  if(!range){toast('本题音频定位暂不可用，请播放本段原音。');return}
+  openClip(id,range.start,{end:range.end,number,label:part==='question'?'本题问题':'答案依据'});
+}
 function openEvidenceClip(id,start,end){
   const clip=clipBank[id];if(!clip||!Number.isFinite(start)||!Number.isFinite(end)||start<0||end<=start||end>clip.duration){toast('本题回听区间暂不可用，请播放本段原音。');return}
-  openClip(id,start);pointA=start;pointB=end;loopOn=true;
-  $('#loop-button').textContent='循环开';$('#ab-label').textContent=`本题依据 A ${fmt(start)} → B ${fmt(end)} · 自动循环`;
-  $('#audio-status').textContent='回听原文依据 · 可调速、暂停或关闭循环';
+  if(practiceMode!=='study'||(isFullMock()&&!mockReview))return;
+  openClip(id,start,{end,number:'',label:'答案依据'});
 }
-function openAudio(id){const r=resource(id);if(!r){toast('请先选择一套听力材料。');return}const offline=location.protocol==='file:';const src=offline?r.audioOffline:(r.audioHosted||r.audioUrl);if(!src){toast('这份官方样题用于阅读和写译；听力请打开J系列材料。');return}if(audioId!==id){audio.pause();audio.src=src;audioId=id;pointA=pointB=null;loopOn=false;audio.playbackRate=1;$('#audio-speed').value='1';$('#loop-button').textContent='循环关';$('#ab-label').textContent='';audio.load()}$('#audio-title').textContent=`${id} · ${r.label}`;$('#audio-status').textContent=offline?'离线原音':r.audioHosted?'已配原音':'来源网站原音';$('#audio-dock').hidden=false;}
+function openAudio(id){const r=resource(id);if(!r){toast('请先选择一套听力材料。');return}const offline=location.protocol==='file:';const src=offline?r.audioOffline:(r.audioHosted||r.audioUrl);if(!src){toast('这份官方样题用于阅读和写译；听力请打开J系列材料。');return}if(audioId!==id){stopListeningAudio();audio.src=src;audioId=id;pointA=pointB=null;loopOn=false;audio.playbackRate=1;$('#audio-speed').value='1';$('#loop-button').textContent='循环关';$('#ab-label').textContent='';audio.load()}$('#audio-title').textContent=`${id} · ${r.label}`;$('#audio-status').textContent=offline?'离线原音':r.audioHosted?'已配原音':'来源网站原音';$('#audio-dock').hidden=false;}
 audio.addEventListener('timeupdate',()=>{if(loopOn&&pointA!==null&&pointB!==null&&audio.currentTime>=pointB)audio.currentTime=pointA});
 audio.addEventListener('error',()=>{$('#audio-status').textContent='音频暂时无法加载';toast('原音暂时无法加载。可打开资料来源页，或使用离线版的本地录音。')});
 $('#audio-speed').addEventListener('change',e=>audio.playbackRate=+e.target.value);
@@ -404,22 +439,22 @@ function mergeLearningRecords(x){
     saved[field][k]={...safe(v),firstAttempt:safe(valid(v.firstAttempt)?v.firstAttempt:v),attempts:(Array.isArray(v.attempts)?v.attempts.filter(valid).slice(0,500):[v]).map(safe)};
   }
 }
-$('#import-file').addEventListener('change',async e=>{const file=e.target.files[0];if(!file)return;try{if(file.size>10e6)throw Error('文件过大');mergeLearningRecords(JSON.parse(await file.text()));const stored=persist();view='progress';room=false;audio.pause();$('#audio-dock').hidden=true;render();toast(stored?'学习记录已合并，较新的日记录与练习结果已保留。':'记录已合并到当前页面，但浏览器未能保存，请立即导出备份。')}catch(err){toast('无法导入：'+err.message)}e.target.value=''});
+$('#import-file').addEventListener('change',async e=>{const file=e.target.files[0];if(!file)return;try{if(file.size>10e6)throw Error('文件过大');mergeLearningRecords(JSON.parse(await file.text()));const stored=persist();view='progress';room=false;stopListeningAudio();$('#audio-dock').hidden=true;render();toast(stored?'学习记录已合并，较新的日记录与练习结果已保留。':'记录已合并到当前页面，但浏览器未能保存，请立即导出备份。')}catch(err){toast('无法导入：'+err.message)}e.target.value=''});
 document.addEventListener('toggle',e=>{if(e.target.dataset?.panel)openPanels[e.target.dataset.panel]=e.target.open},true);
 document.addEventListener('change',e=>{if(e.target.dataset.answerKey){saved.answers[e.target.dataset.answerKey]=e.target.value;persist();const slot=e.target.closest('.inline-cloze-slot');if(slot)slot.classList.toggle('is-filled',!!e.target.value);const lesson=lessonBank[e.target.dataset.lessonId];if(lesson){const status=document.querySelector('[data-lesson-progress="'+lesson.id+'"]');if(status)status.textContent=lessonProgressText(lesson);const reset=document.querySelector('[data-action="reset-lesson-answers"][data-id="'+lesson.id+'"]');if(reset)reset.disabled=!lessonHasAnswers(lesson)}}});
 document.addEventListener('input',e=>{if(e.target.dataset.listeningScratchKey){writeListeningScratch(e.target.dataset.listeningScratchKey,e.target.value);return}if(e.target.id==='reflection-note'){saved.notes[day().date]=e.target.value;persist()}if(e.target.dataset.draftKey){saved.drafts[day().date+'-'+e.target.dataset.draftKey]=e.target.value;persist();const c=$('#word-count');if(c)c.textContent=`当前约${e.target.value.trim()?e.target.value.trim().split(/\s+/).length:0}个英文词`}});
 document.addEventListener('change',e=>{if(e.target.id==='date-select')setDay(e.target.value)});
-document.addEventListener('click',e=>{const btn=e.target.closest('[data-action],[data-view]');if(!btn)return;const a=btn.dataset.action;if(btn.dataset.view||['home','start','start-step','exit-room','next-word','prev-word','known-word','lesson'].includes(a))stopWordPronunciation();if(btn.dataset.view){view=btn.dataset.view;room=false;timerRunning=false;audio.pause();$('#audio-dock').hidden=true;render();window.scrollTo(0,0);return}if(btn.tagName==='A'&&btn.getAttribute('href')==='#')e.preventDefault();
+document.addEventListener('click',e=>{const btn=e.target.closest('[data-action],[data-view]');if(!btn)return;const a=btn.dataset.action;if(btn.dataset.view||['home','start','start-step','exit-room','next-word','prev-word','known-word','lesson'].includes(a))stopWordPronunciation();if(btn.dataset.view){view=btn.dataset.view;room=false;timerRunning=false;stopListeningAudio();$('#audio-dock').hidden=true;render();window.scrollTo(0,0);return}if(btn.tagName==='A'&&btn.getAttribute('href')==='#')e.preventDefault();
   if(a==='material-retry'){materialWaitKey='';materialLoadError='';render();return}
   else if(a==='material-return'){room=false;view='today';render();return}
   else if(a==='listening-scratch-retry'){persist();updateListeningScratchStatus();return}
   else if(a==='listening-scratch-use-version'){useListeningScratchVersion(btn.dataset.key,+btn.dataset.index);return}
-  else if(a==='home'){room=false;view='today';timerRunning=false;audio.pause();$('#audio-dock').hidden=true;render();window.scrollTo(0,0)}
+  else if(a==='home'){room=false;view='today';timerRunning=false;stopListeningAudio();$('#audio-dock').hidden=true;render();window.scrollTo(0,0)}
   else if(a==='choose-day')setDay(btn.dataset.date);
   else if(a==='goto-first')setDay(days[0].date);
   else if(a==='prev-day'||a==='next-day'){const i=days.findIndex(d=>d.date===selected);const d=days[i+(a==='prev-day'?-1:1)];if(d)setDay(d.date)}
   else if(a==='start'||a==='start-step'){room=true;resetRoomState();if(a==='start-step')stepIndex=+btn.dataset.step;timerLeft=steps()[stepIndex].minutes*60;render();window.scrollTo(0,0)}
-  else if(a==='exit-room'){room=false;timerRunning=false;audio.pause();$('#audio-dock').hidden=true;render()}
+  else if(a==='exit-room'){room=false;timerRunning=false;stopListeningAudio();$('#audio-dock').hidden=true;render()}
   else if(a==='step')goStep(+btn.dataset.step);
   else if(a==='next-step')goStep(stepIndex+1);
   else if(a==='prev-step')goStep(stepIndex-1);
@@ -443,22 +478,22 @@ document.addEventListener('click',e=>{const btn=e.target.closest('[data-action],
   else if(a==='prompt'){revealPrompt=true;render()}
   else if(a==='prev-para'){paraIndex--;render()}
   else if(a==='next-para'){paraIndex++;render()}
-  else if(a==='lesson'){practiceMode='exercise';activeLesson=btn.dataset.id;audio.pause();$('#audio-dock').hidden=true;render()}
-  else if(a==='practice-mode'){practiceMode=practiceMode==='exercise'?'study':'exercise';render()}
+  else if(a==='lesson'){practiceMode='exercise';activeLesson=btn.dataset.id;stopListeningAudio();$('#audio-dock').hidden=true;render()}
+  else if(a==='practice-mode'){stopListeningAudio();$('#audio-dock').hidden=true;practiceMode=practiceMode==='exercise'?'study':'exercise';render()}
   else if(a==='check-lesson')checkLesson(btn.dataset.id);
   else if(a==='exercise-word'){const w=lessonBank[btn.dataset.id]?.vocabulary?.[+btn.dataset.index];if(w){if(saved.exerciseWords[w.word])delete saved.exerciseWords[w.word];else saved.exerciseWords[w.word]={word:w.word,meaning:w.meaning||w.zh,example:w.example,lessonId:btn.dataset.id,date:day().date};persist();render()}}
   else if(a==='clip-audio'||a==='clip-restart'){openClip(btn.dataset.id,0)}
-  else if(a==='question-audio'){openClip(btn.dataset.id,+btn.dataset.time)}
+  else if(a==='question-audio'){openQuestionClip(btn.dataset.id,+btn.dataset.number,btn.dataset.part)}
   else if(a==='evidence-audio'){openEvidenceClip(btn.dataset.id,+btn.dataset.start,+btn.dataset.end)}
   else if(a==='evidence-source'){e.preventDefault();const target=$('#transcript-'+btn.dataset.id+'-'+btn.dataset.paragraph);if(target){const details=target.closest('details');if(details){details.open=true;openPanels[details.dataset.panel]=true}const reduced=window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;target.scrollIntoView({behavior:reduced?'auto':'smooth',block:'center'});target.classList.add('evidence-highlight');setTimeout(()=>target.classList.remove('evidence-highlight'),3500)}}
-  else if(a==='mock-review'){practiceMode='study';mockReview=true;activeLesson=null;stepIndex=steps().findIndex(s=>s.id==='listening');render();window.scrollTo(0,0)}
+  else if(a==='mock-review'){stopListeningAudio();$('#audio-dock').hidden=true;practiceMode='study';mockReview=true;activeLesson=null;stepIndex=steps().findIndex(s=>s.id==='listening');render();window.scrollTo(0,0)}
   else if(a==='audio')openAudio(btn.dataset.id);
-  else if(a==='audio-hide'){$('#audio-dock').hidden=true;audio.pause()}
+  else if(a==='audio-hide'){$('#audio-dock').hidden=true;stopListeningAudio()}
   else if(a==='rewind')audio.currentTime=Math.max(0,audio.currentTime-5);
   else if(a==='repeat')audio.currentTime=Math.max(0,audio.currentTime-20);
-  else if(a==='set-a'){pointA=audio.currentTime;$('#ab-label').textContent=`A点 ${fmt(pointA)}，接着设B点。`}
-  else if(a==='set-b'){pointB=audio.currentTime;if(pointA===null||pointB<=pointA){pointB=null;toast('B点需要在A点之后。')}else $('#ab-label').textContent=`循环区间 ${fmt(pointA)}—${fmt(pointB)}`}
-  else if(a==='loop'){if(pointA===null||pointB===null){toast('先设A点和后面的B点。');return}loopOn=!loopOn;$('#loop-button').textContent=loopOn?'循环开':'循环关';if(loopOn)audio.currentTime=pointA}
+  else if(a==='set-a'){clipPlayer?.clearRange();pointA=audio.currentTime;$('#ab-label').textContent=`A点 ${fmt(pointA)}，接着设B点。`}
+  else if(a==='set-b'){clipPlayer?.clearRange();pointB=audio.currentTime;if(pointA===null||pointB<=pointA){pointB=null;toast('B点需要在A点之后。')}else $('#ab-label').textContent=`循环区间 ${fmt(pointA)}—${fmt(pointB)}`}
+  else if(a==='loop'){if(pointA===null||pointB===null){toast('先设A点和后面的B点。');return}clipPlayer?.clearRange();loopOn=!loopOn;$('#loop-button').textContent=loopOn?'循环开':'循环关';if(loopOn)audio.currentTime=pointA}
   else if(a==='pdf')openPdf(btn.dataset.id,btn.dataset.kind);
   else if(a==='transcript'){const lesson=inlineFor('listening');if(lesson)dialog(`<h2 class="dialog-title">${esc(lesson.title)} · 复盘原文</h2><p class="text-note">${esc(lesson.transcriptNote)}</p><div class="transcript">${lesson.transcriptParagraphs.map(x=>`<p><b>${x.speaker}：</b>${esc(x.text)}</p>${x.uncertainty?`<p class="text-note">${esc(x.uncertainty)}</p>`:''}`).join('')}</div>`)}
   else if(a==='writing-tab'){writingIndex=+btn.dataset.index;showReference=false;render()}

@@ -17,6 +17,8 @@
 .evidence-card{border-left:3px solid #86a894;background:#f5f8f2;padding:.75rem 1rem;margin:.6rem 0;border-radius:0 10px 10px 0}
 .evidence-card .passage-text{margin:.2rem 0 .65rem;line-height:1.85;font-size:1.1rem}
 .evidence-play{margin-top:.75rem}
+.question-audio-actions{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 14px}
+.question-audio-actions .small-button{font-size:13px;padding:6px 11px}
 .distractor-list p{padding:.6rem .8rem;background:#faf8f3;border-radius:8px}
 .listening-drill{padding:.85rem 1rem;background:#edf3ed;border-radius:10px;line-height:1.8}
 .transcript-evidence{scroll-margin-top:100px;transition:background .25s}
