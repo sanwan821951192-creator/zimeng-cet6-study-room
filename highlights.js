@@ -3,7 +3,7 @@
 window.StudyMarks=(()=>{
   const kinds=[['passage','.passage-text'],['prompt','.question-prompt'],['option','.option span'],['word','.word-en'],['example','.word-example'],['example-small','.word-example-small'],['warmup','.warmup-english'],['writing','.writing-prompt'],['bank','.word-bank span'],['panel','.panel-body p']];
   const selector=kinds.map(([,css])=>css).join(',');
-  let mode='highlight',lastScope=null,pending=null,pointerType='mouse',selectionTimer=null;
+  let pending=null;
   const popup=document.createElement('section');popup.id='mark-tools-popover';popup.hidden=true;popup.setAttribute('role','toolbar');popup.setAttribute('aria-label','文字标记操作');document.body.append(popup);
   const canLookup=text=>/^[a-z][a-z'-]*(?: [a-z][a-z'-]*){0,3}$/i.test(String(text).trim().replace(/[’‘]/g,"'"))&&text.length<=70;
   function scope(){
@@ -15,13 +15,13 @@ window.StudyMarks=(()=>{
     return step.id==='warmup'?'warmup':null;
   }
   function hash(text){let h=2166136261;for(let i=0;i<text.length;i++)h=Math.imul(h^text.charCodeAt(i),16777619);return (h>>>0).toString(36);}
-  function textNodes(node){const walker=document.createTreeWalker(node,NodeFilter.SHOW_TEXT),nodes=[];while(walker.nextNode()){const t=walker.currentNode;if(!t.parentElement.closest('.inline-cloze-slot,select,option,input,textarea,script,style'))nodes.push(t);}return nodes;}
+  function textNodes(node){const walker=document.createTreeWalker(node,NodeFilter.SHOW_TEXT),nodes=[];while(walker.nextNode()){const t=walker.currentNode;if(!t.parentElement.closest('.inline-cloze-slot,[data-annotation-ignore],select,option,input,textarea,script,style'))nodes.push(t);}return nodes;}
   function metadata(node){
-    const currentScope=scope();if(!currentScope)return null;
+    const currentScope=scope();if(!currentScope||node.closest('[data-annotation-ignore]'))return null;
     const kind=kinds.find(([,css])=>node.matches(css));if(!kind)return null;
     const root=node.closest('details[data-panel],.question-block,.transcript-evidence,.reading-passage,.word-board')||$('#app');
     const rootId=root.dataset.panel||root.id||(root.matches('.reading-passage')?'reading':root.matches('.word-board')?'word-card':'stage');
-    const peers=[...root.querySelectorAll(kind[1])],index=peers.indexOf(node),text=textNodes(node).map(t=>t.textContent).join('');
+    const peers=[...root.querySelectorAll(kind[1])].filter(n=>!n.closest('[data-annotation-ignore]')),index=peers.indexOf(node),text=textNodes(node).map(t=>t.textContent).join('');
     const prefix=day().date+'|'+currentScope+'|'+kind[0]+'|',suffix='|'+hash(text),legacyKey=prefix+rootId+'|'+index+suffix;
     let key=legacyKey,aliases=[legacyKey];
     // The fixed window is another view of the same question, not a new annotation target.
@@ -66,8 +66,9 @@ window.StudyMarks=(()=>{
   }
   function show(data,focus=false,error=false){
     pending=data;popup.hidden=false;
-    popup.innerHTML='<div class="mark-popover-heading"><b>文字标记</b><button class="text-button" data-mark-action="close" aria-label="关闭标记操作">×</button></div><p class="mark-preview">'+esc(data.selectedText.slice(0,100))+'</p><div class="mark-popover-actions"><button class="small-button" data-mark-action="'+(data.ids.length?'remove':'apply')+'" '+(error?'data-state="error"':'')+'>'+(error?'重试保存':data.ids.length?'取消高亮':'高亮标记')+'</button><button class="small-button" data-mark-action="translate" '+(canLookup(data.selectedText)?'':'disabled')+'>查词翻译</button></div>';
-    position(data.rect);if(focus)popup.querySelector('[data-mark-action="'+(data.ids.length?'remove':'apply')+'"]').focus({preventScroll:true});
+    const lookup=canLookup(data.selectedText),saveAction=data.ids.length?'remove':'apply';
+    popup.innerHTML='<div class="mark-popover-heading"><b>文字标记</b><button class="text-button" data-mark-action="close" aria-label="关闭标记操作">×</button></div><p class="mark-preview">'+esc(data.selectedText.slice(0,100))+'</p><div class="mark-popover-actions"><button class="small-button" data-mark-action="translate" '+(lookup?'':'disabled')+'>查词翻译</button><button class="small-button" data-mark-action="'+saveAction+'" '+(error?'data-state="error"':'')+'>'+(error?'重试保存':data.ids.length?'取消高亮':'高亮标记')+'</button></div>';
+    position(data.rect);if(focus)popup.querySelector('[data-mark-action="'+(lookup&&!error?'translate':saveAction)+'"]').focus({preventScroll:true});
   }
   function clearSelection(){window.getSelection()?.removeAllRanges();}
   function add(data){
@@ -97,12 +98,10 @@ window.StudyMarks=(()=>{
       frag.append(text.slice(cursor));t.replaceWith(frag);
     }
   }
-  function controls(){return room&&(!isFullMock()||mockReview)?'<div class="annotation-mode" role="group" aria-label="文字标记方式"><button class="small-button" data-mark-action="mode" data-mark-mode="highlight" aria-pressed="'+(mode==='highlight')+'">高亮标记</button><button class="small-button" data-mark-action="mode" data-mark-mode="lookup" aria-pressed="'+(mode==='lookup')+'">查词翻译</button></div>':'';}
+  function controls(){return '';}
   function onRender(){
-    hide();const currentScope=scope(),page=day().date+'|'+currentScope;
-    if(page!==lastScope)mode='highlight';lastScope=page;
-    document.body.classList.toggle('text-lookup-mode',mode==='lookup');
-    document.querySelectorAll('[data-mark-mode]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.markMode===mode)));
+    hide();const currentScope=scope();
+    document.body.classList.toggle('text-lookup-mode',false);
     if(!currentScope)return;
     for(const node of document.querySelectorAll('#app '+selector.split(',').join(',#app '))){const data=metadata(node);if(data)paint(node,data);}
   }
@@ -112,29 +111,28 @@ window.StudyMarks=(()=>{
     const records=ids.map(id=>saved.highlights[id]),start=Math.min(...records.map(m=>m.start)),end=Math.max(...records.map(m=>m.end));
     show({...data,start,end,selectedText:data.text.slice(start,end),rect:mark.getBoundingClientRect(),ids},true);
   }
-  document.addEventListener('pointerdown',e=>{pointerType=e.pointerType||'mouse';if(!popup.hidden&&!e.target.closest('#mark-tools-popover'))hide();});
+  document.addEventListener('pointerdown',e=>{if(!popup.hidden&&!e.target.closest('#mark-tools-popover'))hide();});
   document.addEventListener('pointerup',e=>{
-    if(mode!=='highlight'||e.target.closest('#mark-tools-popover,#word-lookup,input,textarea,select,option'))return;
-    setTimeout(()=>{const data=selectionData();if(!data)return;if(pointerType==='touch')show(data);else add(data);},0);
+    if(e.target.closest('#mark-tools-popover,#word-lookup,[data-annotation-ignore],input,textarea,select,option'))return;
+    setTimeout(()=>{const data=selectionData();if(data)add(data);},0);
   });
-  document.addEventListener('selectionchange',()=>{if(pointerType!=='touch'||mode!=='highlight')return;clearTimeout(selectionTimer);selectionTimer=setTimeout(()=>{const data=selectionData();if(data)show(data);},120);});
   document.addEventListener('click',e=>{
     if(e.target.closest('.option')&&window.getSelection()?.toString().trim()){e.preventDefault();e.stopImmediatePropagation();return;}
     const mark=e.target.closest('mark.study-highlight');if(mark){if(window.getSelection()?.toString().trim())return;e.preventDefault();e.stopImmediatePropagation();activateMark(mark);}
   },true);
   document.addEventListener('keydown',e=>{
     if(!popup.hidden&&e.key==='Escape'){e.preventDefault();hide(true);return;}
-    const mark=e.target.closest('mark.study-highlight');if(mark&&['Enter',' '].includes(e.key)){e.preventDefault();activateMark(mark);}
+    const mark=e.target.closest('mark.study-highlight');if(mark&&['Enter',' '].includes(e.key)){e.preventDefault();e.stopImmediatePropagation();activateMark(mark);}
   },true);
-  document.addEventListener('keyup',e=>{if(mode==='highlight'&&e.key==='Shift'){const data=selectionData();if(data)add(data);}});
+  document.addEventListener('keyup',e=>{if(e.key==='Shift'){const data=selectionData();if(data)add(data);}});
   document.addEventListener('click',e=>{
     const button=e.target.closest('[data-mark-action]');if(!button)return;const action=button.dataset.markAction;
-    if(action==='mode'){mode=button.dataset.markMode;clearSelection();hide();render();return;}
     if(action==='close'){hide(true);return;}if(!pending)return;
     const data=pending;
     if(action==='apply'||action==='remove'){button.disabled=true;button.setAttribute('aria-busy','true');if(action==='apply')add(data);else remove(data);}
     if(action==='translate'&&canLookup(data.selectedText)){clearSelection();hide();window.WordNotebook?.open(data.selectedText,data.text,data.rect,lessonBank[data.scope]?data.scope:null,data.node);}
   });
   const reposition=()=>{if(!popup.hidden&&pending)position(pending.rect);};window.visualViewport?.addEventListener('resize',reposition);window.visualViewport?.addEventListener('scroll',reposition);
-  onRender();return {controls,onRender,isLookupMode:()=>mode==='lookup'};
+  // Older notebook code asks this before opening on selection. Lookup now requires the mark's explicit button.
+  onRender();return {controls,onRender,isLookupMode:()=>false};
 })();

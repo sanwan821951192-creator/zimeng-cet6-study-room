@@ -44,6 +44,27 @@
   color: var(--pine, #174d40);
 }
 
+.cloze-support-bank .cloze-bank-item.is-used {
+  border-color: #8daf9c;
+  background: #f1f7f1;
+}
+
+.cloze-support-bank .cloze-bank-used {
+  display: inline-block;
+  margin-top: 4px;
+  padding: 1px 7px;
+  border-radius: 3px;
+  color: var(--pine, #174d40);
+  background: #dfede2;
+  font-family: var(--font, sans-serif);
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+.cloze-support-bank .cloze-bank-used[hidden] {
+  display: none;
+}
+
 .cloze-support-bank .cloze-bank-meaning {
   margin: 0;
 }

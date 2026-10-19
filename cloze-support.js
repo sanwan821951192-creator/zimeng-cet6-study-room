@@ -1,6 +1,6 @@
 'use strict';
 
-/* Optional word meanings only; answers and learning records are never read here. */
+/* Word-bank helpers only; answer snapshots come from app.js, never from storage. */
 window.ClozeSupport = (() => {
   const openByScope = new Map();
   const itemSelector = 'details[data-cloze-support-item]';
@@ -48,11 +48,54 @@ window.ClozeSupport = (() => {
     button.setAttribute('aria-pressed', String(allOpen));
   }
 
-  function renderBank(lesson, {date = ''} = {}) {
+  function usageForAnswers(answers) {
+    const usage = new Map();
+    if (!answers || typeof answers !== 'object') return usage;
+    for (const [number, value] of Object.entries(answers)) {
+      // The caller passes question numbers, never complete localStorage keys.
+      if (!/^[1-9]\d*$/.test(number) || typeof value !== 'string' || !value) continue;
+      if (!usage.has(value)) usage.set(value, []);
+      usage.get(value).push(number);
+    }
+    for (const numbers of usage.values()) numbers.sort((left, right) => Number(left) - Number(right));
+    return usage;
+  }
+
+  function usageText(numbers) {
+    return numbers.length ? '已选 ' + numbers.join('、') : '';
+  }
+
+  function scopeFor(lesson, date) {
+    return JSON.stringify([String(date), String(lesson.id ?? '')]);
+  }
+
+  function syncAnswers(lesson, {date = '', answers = {}} = {}) {
+    if (!lesson) return 0;
+    const scope = scopeFor(lesson, date);
+    const usage = usageForAnswers(answers);
+    let updated = 0;
+    document.querySelectorAll(bankSelector).forEach(bank => {
+      if (bank.dataset.clozeSupportBank !== scope) return;
+      for (const item of bank.querySelectorAll('[data-cloze-support-choice]')) {
+        const numbers = usage.get(item.dataset.clozeSupportChoice) || [];
+        item.classList.toggle('is-used', numbers.length > 0);
+        const badge = item.querySelector('.cloze-bank-used');
+        if (!badge) continue;
+        // Keep the English span and any StudyMarks ranges completely intact.
+        badge.textContent = usageText(numbers);
+        badge.hidden = numbers.length === 0;
+      }
+      updated++;
+    });
+    return updated;
+  }
+
+  function renderBank(lesson, {date = '', answers = {}} = {}) {
     if (!Array.isArray(lesson?.wordBank) || !lesson.wordBank.length) return '';
     snapshotVisibleItems();
-    const scope = JSON.stringify([String(date), String(lesson.id ?? '')]);
+    const scope = scopeFor(lesson, date);
     const current = openItems(scope);
+    const usage = usageForAnswers(answers);
     const entries = lesson.wordBank.map((entry, index) => {
       const letter = String(entry.letter ?? '');
       const word = String(entry.word ?? '');
@@ -69,8 +112,9 @@ window.ClozeSupport = (() => {
       <div class="cloze-bank-grid">${entries.map(entry => {
         const isOpen = current.has(entry.key);
         const action = isOpen ? '收起中文' : '显示中文';
+        const numbers = usage.get(entry.letter) || [];
         // Only the English span matches StudyMarks' existing .word-bank span scope.
-        return `<div class="cloze-bank-item"><span class="cloze-bank-en"><b>${escapeHtml(entry.letter)}.</b> ${escapeHtml(entry.word)}</span><details class="cloze-bank-meaning" data-cloze-support-scope="${escapeHtml(scope)}" data-cloze-support-item="${escapeHtml(entry.key)}" data-cloze-support-label="${escapeHtml(entry.label)}"${isOpen ? ' open' : ''}><summary aria-label="${escapeHtml(action + '：' + entry.label)}">${action}</summary><p class="cloze-bank-zh" lang="zh-CN">${escapeHtml(entry.meaning)}</p></details></div>`;
+        return `<div class="cloze-bank-item${numbers.length ? ' is-used' : ''}" data-cloze-support-choice="${escapeHtml(entry.letter)}"><span class="cloze-bank-en"><b>${escapeHtml(entry.letter)}.</b> ${escapeHtml(entry.word)}</span><small class="cloze-bank-used" role="status" aria-live="polite"${numbers.length ? '' : ' hidden'}>${escapeHtml(usageText(numbers))}</small><details class="cloze-bank-meaning" data-cloze-support-scope="${escapeHtml(scope)}" data-cloze-support-item="${escapeHtml(entry.key)}" data-cloze-support-label="${escapeHtml(entry.label)}"${isOpen ? ' open' : ''}><summary aria-label="${escapeHtml(action + '：' + entry.label)}">${action}</summary><p class="cloze-bank-zh" lang="zh-CN">${escapeHtml(entry.meaning)}</p></details></div>`;
       }).join('')}</div>
     </section>`;
   }
@@ -101,5 +145,5 @@ window.ClozeSupport = (() => {
     updateAllButton(bank);
   });
 
-  return Object.freeze({renderBank});
+  return Object.freeze({renderBank, syncAnswers});
 })();
