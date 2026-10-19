@@ -8,6 +8,8 @@ const storageFields=['records','notes','answers','drafts','hardWords','knownWord
 function cleanMap(value){return value&&typeof value==='object'&&!Array.isArray(value)?Object.fromEntries(Object.entries(value).filter(([key])=>!['__proto__','constructor','prototype'].includes(key))):{}}
 function readStore(){try{const x=JSON.parse(localStorage.getItem(STORE)||'{}');return Object.fromEntries(storageFields.map(field=>[field,cleanMap(x?.[field])]))}catch{return Object.fromEntries(storageFields.map(field=>[field,{}]))}}
 let saved=readStore();
+function rememberNotebookBackup(){try{window.NotebookRecovery?.remember(saved.personalWords);}catch{}}
+rememberNotebookBackup();
 const pendingListeningDrafts=new Set();
 saved.exerciseWords=saved.exerciseWords||{};saved.lessonResults=saved.lessonResults||{};
 const lessonBank={...content.inlineLessons,...DATA.lessons};
@@ -36,7 +38,11 @@ if(window.ResizeObserver){const dockSizeObserver=new window.ResizeObserver(()=>{
 const day=()=>days.find(d=>d.date===selected)||days[0];
 const isFullMock=(d=day())=>['mock','mockPractice'].includes(d.mode);
 const resource=id=>resources.find(r=>r.id===id);
-function persist(){try{localStorage.setItem(STORE,JSON.stringify(saved));pendingListeningDrafts.clear();updateListeningScratchStatus();return true}catch{toast('浏览器暂时无法保存，请导出记录保留本次学习。');return false}}
+function persist(){try{
+  const payload=JSON.stringify(saved),write=()=>localStorage.setItem(STORE,payload);
+  try{write();}catch(error){const quota=error?.name==='QuotaExceededError'||error?.name==='NS_ERROR_DOM_QUOTA_REACHED'||error?.code===22||error?.code===1014;if(!quota||!window.NotebookRecovery?.retryPrimarySave?.(write))throw error;}
+  rememberNotebookBackup();pendingListeningDrafts.clear();updateListeningScratchStatus();return true;
+}catch{toast('浏览器暂时无法保存，请导出记录保留本次学习。');return false}}
 function toast(msg){const t=$('#toast');t.textContent=msg;t.hidden=false;clearTimeout(toast.timeout);toast.timeout=setTimeout(()=>t.hidden=true,3800)}
 const done=d=>saved.records[d.date]?.status==='完成';
 const pretty=d=>`${+d.slice(5,7)}月${+d.slice(8,10)}日`;
