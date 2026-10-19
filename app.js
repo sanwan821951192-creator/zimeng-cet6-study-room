@@ -31,6 +31,7 @@ const audio=$('#global-audio');
 const audioDock=$('#audio-dock');
 const clipPlayer=window.ListeningClipPlayer?.create(audio,{
   onEnd:()=>{$('#audio-status').textContent='本题片段已播完 · 点击播放器可重听';},
+  onSeekRelease:()=>{pointA=pointB=null;loopOn=false;$('#loop-button').textContent='循环关';$('#ab-label').textContent='';$('#audio-title').textContent=`${audioId} · ${lessonBank[audioId]?.title||'本段原音'}`;$('#audio-status').textContent='自由播放 · 可拖动时间条';},
   onError:()=>toast('请点击播放器中的播放按钮重听。')
 });
 function stopListeningAudio(){if(clipPlayer)clipPlayer.cancel();else audio.pause();}

@@ -1,43 +1,55 @@
 'use strict';
 // Plays ranges of the supplied recording without making or downloading new audio.
-window.ListeningClipPlayer={create(audio,{onEnd=()=>{},onError=()=>{}}={}){
-  let generation=0,bounds=null,pending=null,timer=null,disposed=false,finishing=false,completed=false,released=false;
+window.ListeningClipPlayer={create(audio,{onEnd=()=>{},onError=()=>{},onSeekRelease=()=>{}}={}){
+  let generation=0,bounds=null,pending=null,timer=null,disposed=false,finishing=false,completed=false,released=false,ownSeek=null,resumeAfterSeek=false;
   const stopTimer=()=>{if(timer!==null)clearTimeout(timer);timer=null;};
   function detach(){if(pending){audio.removeEventListener('loadedmetadata',pending);pending=null;}}
-  function clearRange(){bounds=null;completed=false;released=true;stopTimer();}
+  function clearRange(){bounds=null;completed=false;released=true;ownSeek=null;resumeAfterSeek=false;stopTimer();}
   function cancel(){generation++;detach();clearRange();audio.pause();}
+  function seekTo(target){if(audio.currentTime!==target){ownSeek={generation,target};audio.currentTime=target;}}
+  function isOwnSeek(){return ownSeek?.generation===generation&&Math.abs(audio.currentTime-ownSeek.target)<.001;}
+  function outside(){return bounds&&(audio.currentTime<bounds.start||audio.currentTime>=bounds.end);}
+  function releaseSeek(){if(!bounds)return;const range={...bounds};clearRange();onSeekRelease({range,currentTime:audio.currentTime});}
   function finish(){
     if(!bounds||finishing||completed)return;
     finishing=true;completed=true;stopTimer();audio.pause();
-    if(audio.currentTime!==bounds.end)audio.currentTime=bounds.end;
+    // Stay just before a physical media end so native replay does not reset the whole recording to zero.
+    seekTo(bounds.end===audio.duration?Math.max(bounds.start,bounds.end-.001):bounds.end);
     const range={...bounds};finishing=false;onEnd(range);
   }
   function check(){
     if(!bounds||disposed)return;
+    if(audio.seeking){stopTimer();return;}
     if(audio.currentTime>=bounds.end-.015){finish();return;}
     schedule();
   }
   function schedule(){
-    stopTimer();if(!bounds||audio.paused||audio.ended||disposed)return;
+    stopTimer();if(!bounds||audio.paused||audio.ended||audio.seeking||disposed)return;
     const remaining=(bounds.end-audio.currentTime)/Math.max(.1,audio.playbackRate||1)*1000;
     timer=setTimeout(check,Math.max(15,Math.min(200,remaining)));
   }
-  function clampSeek(){
-    if(!bounds||finishing)return;
-    if(audio.currentTime<bounds.start){audio.currentTime=bounds.start;return;}
-    if(audio.currentTime>=bounds.end){finish();return;}
-    schedule();
+  function seeking(){
+    stopTimer();if(!bounds||finishing||isOwnSeek())return;
+    if(outside())releaseSeek();
+  }
+  function seeked(){
+    const internal=isOwnSeek();ownSeek=null;
+    if(!bounds)return;
+    if(!internal&&outside()){releaseSeek();return;}
+    if(resumeAfterSeek){resumeAfterSeek=false;resume();}else check();
   }
   function resume(){
+    if(audio.seeking){resumeAfterSeek=true;stopTimer();return;}
+    if(bounds&&completed&&Math.abs(audio.currentTime-bounds.end)<.015){completed=false;seekTo(bounds.start);}
+    else if(outside()){releaseSeek();return;}
     completed=false;
-    if(bounds&&(audio.currentTime<bounds.start||audio.currentTime>=bounds.end-.015))audio.currentTime=bounds.start;
     schedule();
   }
   function mediaError(){
     const wasPending=!!pending;generation++;detach();clearRange();
     if(wasPending)onError();
   }
-  const events={timeupdate:check,seeking:clampSeek,seeked:schedule,playing:schedule,play:resume,pause:stopTimer,waiting:stopTimer,ratechange:schedule,ended:()=>{stopTimer();if(bounds)finish();},error:mediaError};
+  const events={timeupdate:check,seeking,seeked,playing:schedule,play:resume,pause:stopTimer,waiting:stopTimer,ratechange:schedule,ended:()=>{stopTimer();if(bounds&&!audio.seeking)finish();},error:mediaError};
   for(const [name,handler] of Object.entries(events))audio.addEventListener(name,handler);
   function play({src,start=0,end=null}){
     if(disposed||!src||!Number.isFinite(start)||start<0||(end!==null&&(!Number.isFinite(end)||end<=start)))return false;
@@ -50,7 +62,7 @@ window.ListeningClipPlayer={create(audio,{onEnd=()=>{},onError=()=>{}}={}){
       const endAt=end===null?null:Math.min(end,duration);
       if(start>=duration||(endAt!==null&&start>=endAt)){onError();return;}
       bounds=endAt===null||released?null:{start,end:endAt};
-      audio.currentTime=start;
+      seekTo(start);
       try{
         const promise=audio.play();
         if(promise&&typeof promise.catch==='function')promise.catch(()=>{if(token===generation&&!disposed){stopTimer();onError();}});
