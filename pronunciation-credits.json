@@ -3,7 +3,7 @@
   "importedAt": "2026-10-16T07:06:35.384305+00:00",
   "unchangedAudio": false,
   "scopeCounts": {
-    "isolatedWord": 239,
+    "isolatedWord": 281,
     "wholeExample": 35
   },
   "entries": [
@@ -31229,15 +31229,1355 @@
           "hidden": ""
         }
       }
+    },
+    {
+      "word": "ability",
+      "file": "pronunciation-audio/lookup-75b1aa47496e3c36d1.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-35cfee3c.flac",
+      "sha256": "75b1aa47496e3c36d1cbdd50658825b03d5cdb4a591524c1ed1c28039686b2c7",
+      "bytes": 68701,
+      "exactSpokenText": "ability",
+      "unchanged": true
+    },
+    {
+      "word": "accordingly",
+      "file": "pronunciation-audio/lookup-8661db83705938775b.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-a66861c5.flac",
+      "sha256": "8661db83705938775b7a1d147b2266b53f37a6ba674ced10836b0718977c1308",
+      "bytes": 70811,
+      "exactSpokenText": "accordingly",
+      "unchanged": true
+    },
+    {
+      "word": "account",
+      "file": "pronunciation-audio/lookup-381f7f8fd89ab91cdc.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-7d3656a4.flac",
+      "sha256": "381f7f8fd89ab91cdca8cd8a6626abf703ba09da94e04d4f02d185639295eed5",
+      "bytes": 61163,
+      "exactSpokenText": "account",
+      "unchanged": true
+    },
+    {
+      "word": "adequate",
+      "file": "pronunciation-audio/lookup-0f4db5b48fa9fbdeb8.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-f96e98b0.flac",
+      "sha256": "0f4db5b48fa9fbdeb8fe9afb52338f91f5effb62a92864d6ffd4bd850e60fbbc",
+      "bytes": 69952,
+      "exactSpokenText": "adequate",
+      "unchanged": true
+    },
+    {
+      "word": "appearance",
+      "file": "pronunciation-audio/lookup-521d965a7ca3d08bca.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-aab38290.flac",
+      "sha256": "521d965a7ca3d08bca26195815f46e4a7fb3e66a37e987b8a8df2eb29ec98a09",
+      "bytes": 78920,
+      "exactSpokenText": "appearance",
+      "unchanged": true
+    },
+    {
+      "word": "architectural",
+      "file": "pronunciation-audio/lookup-cd7a30fcd31221fbd7.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-af7685a6.flac",
+      "sha256": "cd7a30fcd31221fbd78a17b4415b0dbb4f5daafaaab9e3f19797a04d0786a94c",
+      "bytes": 78191,
+      "exactSpokenText": "architectural",
+      "unchanged": true
+    },
+    {
+      "word": "attachment",
+      "file": "pronunciation-audio/lookup-c155b3a823fb12ff3c.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-795fd9bb.flac",
+      "sha256": "c155b3a823fb12ff3c5e954cd7928352a05a5daf5d0c28f48fb95e756795a0b4",
+      "bytes": 79454,
+      "exactSpokenText": "attachment",
+      "unchanged": true
+    },
+    {
+      "word": "capacity",
+      "file": "pronunciation-audio/lookup-6ef7a3302315e001b6.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-b5e8b174.flac",
+      "sha256": "6ef7a3302315e001b6d84b1c48d54a03048e5971c977ceff763202705222d0c7",
+      "bytes": 71469,
+      "exactSpokenText": "capacity",
+      "unchanged": true
+    },
+    {
+      "word": "cautious",
+      "file": "pronunciation-audio/lookup-cfbd9ef220ebe30542.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-dfdb7cbc.flac",
+      "sha256": "cfbd9ef220ebe30542f22e00d70adab8674e2461555b0edf2d4408bdddfbab34",
+      "bytes": 75634,
+      "exactSpokenText": "cautious",
+      "unchanged": true
+    },
+    {
+      "word": "companionship",
+      "file": "pronunciation-audio/lookup-62aae1c660927d8925.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-1f01330f.flac",
+      "sha256": "62aae1c660927d89253eb493e1ef16e330559d52e3cb779946895de0396846bb",
+      "bytes": 74623,
+      "exactSpokenText": "companionship",
+      "unchanged": true
+    },
+    {
+      "word": "competence",
+      "file": "pronunciation-audio/lookup-945dfafe175ce3fba0.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-94d4687f.flac",
+      "sha256": "945dfafe175ce3fba05ceaa28bc75364e9287f4c68c5ff639ca1cb5a00d4b529",
+      "bytes": 73457,
+      "exactSpokenText": "competence",
+      "unchanged": true
+    },
+    {
+      "word": "concise",
+      "file": "pronunciation-audio/lookup-31e63c9d00ce257dae.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-afcdea05.flac",
+      "sha256": "31e63c9d00ce257dae508c2bd706ef74a2241539b188aaf9f0112414c85ee855",
+      "bytes": 76891,
+      "exactSpokenText": "concise",
+      "unchanged": true
+    },
+    {
+      "word": "concrete",
+      "file": "pronunciation-audio/lookup-b8e30299887626aff9.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-53756f73.flac",
+      "sha256": "b8e30299887626aff94b841def28cf90adea050a54cea8c1f3c81843116a32c8",
+      "bytes": 65718,
+      "exactSpokenText": "concrete",
+      "unchanged": true
+    },
+    {
+      "word": "confidence",
+      "file": "pronunciation-audio/lookup-da0fe19de5173314ad.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-09779191.flac",
+      "sha256": "da0fe19de5173314adf0856d4372552e10bf1f1c57f78df46e42876d7432b349",
+      "bytes": 79663,
+      "exactSpokenText": "confidence",
+      "unchanged": true
+    },
+    {
+      "word": "conform",
+      "file": "pronunciation-audio/lookup-45d71076af3dfcdd1c.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-8b5edff6.flac",
+      "sha256": "45d71076af3dfcdd1c696ab07fd42ea74e719805ceda73a2fcd3f60c0a085511",
+      "bytes": 68247,
+      "exactSpokenText": "conform",
+      "unchanged": true
+    },
+    {
+      "word": "considerable",
+      "file": "pronunciation-audio/lookup-cff2bfd92d6be66bae.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-b61a11ce.flac",
+      "sha256": "cff2bfd92d6be66baec7cce563f2c2554443402d7f1bba669d16b1254e66af62",
+      "bytes": 73995,
+      "exactSpokenText": "considerable",
+      "unchanged": true
+    },
+    {
+      "word": "container",
+      "file": "pronunciation-audio/lookup-706a89642e41e5e6e5.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-c7a2ec1b.flac",
+      "sha256": "706a89642e41e5e6e5ae7353cbe5b0d1c77fbc0c6576efbdd366f0cd21324fce",
+      "bytes": 65934,
+      "exactSpokenText": "container",
+      "unchanged": true
+    },
+    {
+      "word": "coordination",
+      "file": "pronunciation-audio/lookup-d9024890487b3b3a09.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-2e9bc534.flac",
+      "sha256": "d9024890487b3b3a0922ec911114a18a9740ae83ec293eb744708a5fa60aa5c0",
+      "bytes": 97482,
+      "exactSpokenText": "coordination",
+      "unchanged": true
+    },
+    {
+      "word": "criticism",
+      "file": "pronunciation-audio/lookup-c662e3c87c451ddf08.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Emmanuel Revah",
+      "author": "Emmanuel Revah, Vion Nicolas",
+      "license": "CC BY 2.0 FR",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0/fr/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-balm-emmanuel/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-balm-emmanuel_flac.tar.xz",
+      "sourceArchiveSha256": "b3fb5ff00d6ad5abeb0d5dc8653e3dcfcbc5aaaea1a6f25d5f0716815bb54ba3",
+      "archiveMember": "flac/eng-2ea9f36d.flac",
+      "sha256": "c662e3c87c451ddf08997b6052c11722f2ff56dec9344e1e1da23065c95b0f84",
+      "bytes": 69101,
+      "exactSpokenText": "criticism",
+      "unchanged": true
+    },
+    {
+      "word": "degree",
+      "file": "pronunciation-audio/lookup-685f4c8c577949a20f.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "UK",
+      "speaker": "Judith Franck",
+      "author": "Association Shtooka, Judith Franck",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-balm-judith/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-balm-judith_flac.tar.xz",
+      "sourceArchiveSha256": "645c31fd23e266e6ba18e0b207207dd1d191d3a1c3342df0cd7fd09a293646c1",
+      "archiveMember": "flac/eng-a7a36d63.flac",
+      "sha256": "685f4c8c577949a20f0090d93a6cb4bfd968b2a19087ae463aaf061c53c078bf",
+      "bytes": 49854,
+      "exactSpokenText": "degree",
+      "unchanged": true
+    },
+    {
+      "word": "departure",
+      "file": "pronunciation-audio/lookup-fbb5e5f0b7a77c7cd2.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "UK",
+      "speaker": "Judith Franck",
+      "author": "Association Shtooka, Judith Franck",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-balm-judith/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-balm-judith_flac.tar.xz",
+      "sourceArchiveSha256": "645c31fd23e266e6ba18e0b207207dd1d191d3a1c3342df0cd7fd09a293646c1",
+      "archiveMember": "flac/eng-45e9c671.flac",
+      "sha256": "fbb5e5f0b7a77c7cd251d66a16721149e9c5fc693659d819b643b8b939333b9e",
+      "bytes": 66623,
+      "exactSpokenText": "departure",
+      "unchanged": true
+    },
+    {
+      "word": "digital",
+      "file": "pronunciation-audio/lookup-b36f074c96db78d3e6.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-cb484dd7.flac",
+      "sha256": "b36f074c96db78d3e6e2d1538d090e88fbce32e0a030b37cfb58a2b11749016e",
+      "bytes": 65306,
+      "exactSpokenText": "digital",
+      "unchanged": true
+    },
+    {
+      "word": "displace",
+      "file": "pronunciation-audio/lookup-e4f115f91b6eb7cade.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-1024a3a1.flac",
+      "sha256": "e4f115f91b6eb7caded554eb52f60f2c08e38b9a062d57b62be4deb839d9c942",
+      "bytes": 77350,
+      "exactSpokenText": "displace",
+      "unchanged": true
+    },
+    {
+      "word": "disturb",
+      "file": "pronunciation-audio/lookup-4c604d21868563fd2e.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Emmanuel Revah",
+      "author": "Emmanuel Revah, Vion Nicolas",
+      "license": "CC BY 2.0 FR",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0/fr/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-balm-emmanuel/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-balm-emmanuel_flac.tar.xz",
+      "sourceArchiveSha256": "b3fb5ff00d6ad5abeb0d5dc8653e3dcfcbc5aaaea1a6f25d5f0716815bb54ba3",
+      "archiveMember": "flac/eng-7bcef575.flac",
+      "sha256": "4c604d21868563fd2ee1b86a9d7ca1129dc253005678f508d894c2fcf68abbc1",
+      "bytes": 61121,
+      "exactSpokenText": "disturb",
+      "unchanged": true
+    },
+    {
+      "word": "division",
+      "file": "pronunciation-audio/lookup-be642d2ca7b0e31b4b.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-10174714.flac",
+      "sha256": "be642d2ca7b0e31b4b35d0344d4da746a8c0635a78ccf724f0acd430e96314f1",
+      "bytes": 66649,
+      "exactSpokenText": "division",
+      "unchanged": true
+    },
+    {
+      "word": "efficient",
+      "file": "pronunciation-audio/lookup-c395f2864892060091.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-5b5211e7.flac",
+      "sha256": "c395f2864892060091724d2c5c769102bc35a902c082f3f3cffc6afce51879aa",
+      "bytes": 65453,
+      "exactSpokenText": "efficient",
+      "unchanged": true
+    },
+    {
+      "word": "emerge",
+      "file": "pronunciation-audio/lookup-07efb9a2783dc9f980.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-c4b05f0e.flac",
+      "sha256": "07efb9a2783dc9f9801aa026533ef9c585237dc75fe388754b4f6f323372f749",
+      "bytes": 61535,
+      "exactSpokenText": "emerge",
+      "unchanged": true
+    },
+    {
+      "word": "essential",
+      "file": "pronunciation-audio/lookup-80aa93997d66849147.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-ea206bb4.flac",
+      "sha256": "80aa93997d668491475282230e7b50755c149c48af3aefe8e036fba7439a6f5e",
+      "bytes": 67669,
+      "exactSpokenText": "essential",
+      "unchanged": true
+    },
+    {
+      "word": "exhibition",
+      "file": "pronunciation-audio/lookup-99a82aa6375d9e39eb.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-b8353389.flac",
+      "sha256": "99a82aa6375d9e39eb22859800ef40050c56edad0bbb84bbd30882057f76c450",
+      "bytes": 77682,
+      "exactSpokenText": "exhibition",
+      "unchanged": true
+    },
+    {
+      "word": "flexibility",
+      "file": "pronunciation-audio/lookup-0651a0ecf1c73c9494.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-ea303882.flac",
+      "sha256": "0651a0ecf1c73c9494bf030ef85fa1c49dd15d1981baca46d2123b62e9aa5c17",
+      "bytes": 87197,
+      "exactSpokenText": "flexibility",
+      "unchanged": true
+    },
+    {
+      "word": "genuine",
+      "file": "pronunciation-audio/lookup-bdcb2894f7867bd1ee.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-7007892f.flac",
+      "sha256": "bdcb2894f7867bd1eea4539d321c90d35ade6447d0161449ce041297479d2ace",
+      "bytes": 59372,
+      "exactSpokenText": "genuine",
+      "unchanged": true
+    },
+    {
+      "word": "graduate",
+      "file": "pronunciation-audio/lookup-cc47803c79e4081aac.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-089e6227.flac",
+      "sha256": "cc47803c79e4081aac4219ba359f6319c2af487ab0cb4d9782e6df3ea9b14179",
+      "bytes": 63404,
+      "exactSpokenText": "graduate",
+      "unchanged": true
+    },
+    {
+      "word": "identical",
+      "file": "pronunciation-audio/lookup-6a08df4c5de5f9f399.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-91177c12.flac",
+      "sha256": "6a08df4c5de5f9f3995afe4a675d70f6c896df06d311ae66354849ae7eabe5fb",
+      "bytes": 66277,
+      "exactSpokenText": "identical",
+      "unchanged": true
+    },
+    {
+      "word": "inconsistencies",
+      "file": "pronunciation-audio/lookup-0038988303ece92a9d.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-59ea58d9.flac",
+      "sha256": "0038988303ece92a9d6932e0f759ddc3a3d43715a8e26800d14af2f23692733d",
+      "bytes": 111193,
+      "exactSpokenText": "inconsistencies",
+      "unchanged": true
+    },
+    {
+      "word": "independent",
+      "file": "pronunciation-audio/lookup-2cd8f76e7089035b2e.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-d2a94e98.flac",
+      "sha256": "2cd8f76e7089035b2e531f6a9074bb05f24be8826338a7000b0bec52327cb6ad",
+      "bytes": 67345,
+      "exactSpokenText": "independent",
+      "unchanged": true
+    },
+    {
+      "word": "inefficient",
+      "file": "pronunciation-audio/lookup-e0e28db4a8053dea09.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-326b28db.flac",
+      "sha256": "e0e28db4a8053dea09ab905a56882c5e7bf0711e132c623964f7465260adf4a7",
+      "bytes": 70291,
+      "exactSpokenText": "inefficient",
+      "unchanged": true
+    },
+    {
+      "word": "informative",
+      "file": "pronunciation-audio/lookup-596071108e6c30f84c.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-25ab6813.flac",
+      "sha256": "596071108e6c30f84c06e540b05a491a2c88ecb2f993cf4a1283ea235f3ae9e9",
+      "bytes": 76706,
+      "exactSpokenText": "informative",
+      "unchanged": true
+    },
+    {
+      "word": "instructor",
+      "file": "pronunciation-audio/lookup-febfc41320e99f6b9c.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-31fc43dd.flac",
+      "sha256": "febfc41320e99f6b9ccaacb276c378c21ead0cffd4b0a9e4592b58bcf3ae239e",
+      "bytes": 77223,
+      "exactSpokenText": "instructor",
+      "unchanged": true
+    },
+    {
+      "word": "intern",
+      "file": "pronunciation-audio/lookup-8c80f01ed38fd92426.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-a5795f36.flac",
+      "sha256": "8c80f01ed38fd92426a9b8c4e9a3662bd547178d0b679e1a2d26f23ed5e95915",
+      "bytes": 67837,
+      "exactSpokenText": "intern",
+      "unchanged": true
+    },
+    {
+      "word": "judgement",
+      "file": "pronunciation-audio/lookup-8545c923e4a5fab47a.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-db68fa50.flac",
+      "sha256": "8545c923e4a5fab47a6b1fd4a316977add0476a7a9e3778b9900215649c96e47",
+      "bytes": 72023,
+      "exactSpokenText": "judgement",
+      "unchanged": true
+    },
+    {
+      "word": "measurement",
+      "file": "pronunciation-audio/lookup-42d8e1c091b6e85d10.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-2ce0d811.flac",
+      "sha256": "42d8e1c091b6e85d10430b155916f52fc5075d4511937e3fe806a40006022f08",
+      "bytes": 65646,
+      "exactSpokenText": "measurement",
+      "unchanged": true
+    },
+    {
+      "word": "modest",
+      "file": "pronunciation-audio/lookup-5856f6cb5e6686503a.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-b7e8ab34.flac",
+      "sha256": "5856f6cb5e6686503a20361b2cf4ecab6205ed4c9189eb2d018283e0598dd411",
+      "bytes": 66470,
+      "exactSpokenText": "modest",
+      "unchanged": true
+    },
+    {
+      "word": "navigate",
+      "file": "pronunciation-audio/lookup-efbafc2ab252cc874c.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-5db496d9.flac",
+      "sha256": "efbafc2ab252cc874c81627a4c6b2c8e9f9285954089451a7695980675168182",
+      "bytes": 65764,
+      "exactSpokenText": "navigate",
+      "unchanged": true
+    },
+    {
+      "word": "neutral",
+      "file": "pronunciation-audio/lookup-cf477ed83505c74907.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-a424e5f0.flac",
+      "sha256": "cf477ed83505c74907a73d343aea922cdadd55b2753418a2be4c72c7f0ecd3b6",
+      "bytes": 55201,
+      "exactSpokenText": "neutral",
+      "unchanged": true
+    },
+    {
+      "word": "occupation",
+      "file": "pronunciation-audio/lookup-748bc8854e3a212989.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-02f87d51.flac",
+      "sha256": "748bc8854e3a2129893b0824ab0e2afc597a94ce51c2eb384a41c432c8389b4d",
+      "bytes": 77809,
+      "exactSpokenText": "occupation",
+      "unchanged": true
+    },
+    {
+      "word": "particular",
+      "file": "pronunciation-audio/lookup-b5b953abf277dd1443.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-862161cf.flac",
+      "sha256": "b5b953abf277dd144379ed6ee34e3dc3e264cb5348ed067ebcacdb8660485aa3",
+      "bytes": 65244,
+      "exactSpokenText": "particular",
+      "unchanged": true
+    },
+    {
+      "word": "popularity",
+      "file": "pronunciation-audio/lookup-e6d6a28ca32586948a.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-bbc7b189.flac",
+      "sha256": "e6d6a28ca32586948af6c8c30e887c678f1c81971a9668c03aa05880745aaac0",
+      "bytes": 83131,
+      "exactSpokenText": "popularity",
+      "unchanged": true
+    },
+    {
+      "word": "predictable",
+      "file": "pronunciation-audio/lookup-511135b7d7adfb1121.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-8509d089.flac",
+      "sha256": "511135b7d7adfb1121a8ba31fd633dfb3f3563080ca9b028efc35e745f0cfc2b",
+      "bytes": 68963,
+      "exactSpokenText": "predictable",
+      "unchanged": true
+    },
+    {
+      "word": "prediction",
+      "file": "pronunciation-audio/lookup-776954a88bd0b60864.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-36396fc8.flac",
+      "sha256": "776954a88bd0b60864fa4664ad5a30dae65ec28f2832004b5bfc1a53dabae407",
+      "bytes": 71587,
+      "exactSpokenText": "prediction",
+      "unchanged": true
+    },
+    {
+      "word": "producer",
+      "file": "pronunciation-audio/lookup-8804bcbc00da0b13aa.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-976449dc.flac",
+      "sha256": "8804bcbc00da0b13aa349935fcc4b6824b2f39460534346381a16349e9623878",
+      "bytes": 64870,
+      "exactSpokenText": "producer",
+      "unchanged": true
+    },
+    {
+      "word": "proportionate",
+      "file": "pronunciation-audio/lookup-494100508f839b7c05.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-ede258a7.flac",
+      "sha256": "494100508f839b7c0510018b060794d9e56a851b205b18189b3f0d2ce61e443a",
+      "bytes": 72361,
+      "exactSpokenText": "proportionate",
+      "unchanged": true
+    },
+    {
+      "word": "purchase",
+      "file": "pronunciation-audio/lookup-4a72882eefa603d8ea.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-6117d13b.flac",
+      "sha256": "4a72882eefa603d8ea4fda94213a627d983850f66b8fb6bdf71fff4a23581c70",
+      "bytes": 72113,
+      "exactSpokenText": "purchase",
+      "unchanged": true
+    },
+    {
+      "word": "regional",
+      "file": "pronunciation-audio/lookup-9d1597ad0d4ccd8f5b.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-cae476f2.flac",
+      "sha256": "9d1597ad0d4ccd8f5b7f44fe493d106bab5248389efe5f7111e59b6898904b8a",
+      "bytes": 64400,
+      "exactSpokenText": "regional",
+      "unchanged": true
+    },
+    {
+      "word": "regular",
+      "file": "pronunciation-audio/lookup-b54f5f0f81e6f43fba.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-4a7103d4.flac",
+      "sha256": "b54f5f0f81e6f43fba398aa18ab5a5818e293584312c413a8be75a257f4b3db7",
+      "bytes": 60170,
+      "exactSpokenText": "regular",
+      "unchanged": true
+    },
+    {
+      "word": "reliable",
+      "file": "pronunciation-audio/lookup-29c4549c826d5aea39.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-8594ce8f.flac",
+      "sha256": "29c4549c826d5aea390dd4cbf0267bf260d514d97bca81c4694fcc70da1e1466",
+      "bytes": 70021,
+      "exactSpokenText": "reliable",
+      "unchanged": true
+    },
+    {
+      "word": "reminder",
+      "file": "pronunciation-audio/lookup-57bf3abb2e38a06b9e.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-40374f40.flac",
+      "sha256": "57bf3abb2e38a06b9e8245e63063ef2aa68f49e31a84d3f55bc630e0ed66bb08",
+      "bytes": 62725,
+      "exactSpokenText": "reminder",
+      "unchanged": true
+    },
+    {
+      "word": "remote",
+      "file": "pronunciation-audio/lookup-4abd19bc7c3edaf81f.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-5ab67fb2.flac",
+      "sha256": "4abd19bc7c3edaf81f3924a24c55494c36d535ba4532dded3b3f21c87c959d08",
+      "bytes": 56581,
+      "exactSpokenText": "remote",
+      "unchanged": true
+    },
+    {
+      "word": "replacement",
+      "file": "pronunciation-audio/lookup-2ccc231f4f5006c918.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-54d5f44a.flac",
+      "sha256": "2ccc231f4f5006c918e292c174bc9b33a2fd24dadba739bcbcf50f74bc90bbe2",
+      "bytes": 72397,
+      "exactSpokenText": "replacement",
+      "unchanged": true
+    },
+    {
+      "word": "retain",
+      "file": "pronunciation-audio/lookup-52b4e663adf5683a96.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-1587ff39.flac",
+      "sha256": "52b4e663adf5683a96845fd02329f1e5ddebd9814cae82269dce45b80d15b0f1",
+      "bytes": 64416,
+      "exactSpokenText": "retain",
+      "unchanged": true
+    },
+    {
+      "word": "secure",
+      "file": "pronunciation-audio/lookup-75504676541516d807.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-36de5a04.flac",
+      "sha256": "75504676541516d8077b88943f40c7781b31a7a35761ebeda6838d2a9076334b",
+      "bytes": 68209,
+      "exactSpokenText": "secure",
+      "unchanged": true
+    },
+    {
+      "word": "selective",
+      "file": "pronunciation-audio/lookup-5437452ff3b0f1e2bc.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-9a777c47.flac",
+      "sha256": "5437452ff3b0f1e2bc7bdcc3a3c2d2689679eab9887f14a42c7ed54ccdc58df8",
+      "bytes": 72134,
+      "exactSpokenText": "selective",
+      "unchanged": true
+    },
+    {
+      "word": "speculation",
+      "file": "pronunciation-audio/lookup-76dc1f906fa7c458f8.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-3c9ef136.flac",
+      "sha256": "76dc1f906fa7c458f86540119b9a8da6621a4692710c1295f353c8718356257e",
+      "bytes": 92067,
+      "exactSpokenText": "speculation",
+      "unchanged": true
+    },
+    {
+      "word": "suitable",
+      "file": "pronunciation-audio/lookup-4b46c45d8d11cfc765.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-e65d905f.flac",
+      "sha256": "4b46c45d8d11cfc765f1c670aa70894e6bd5cd3f44aa03e8d205ce153f6e088e",
+      "bytes": 65520,
+      "exactSpokenText": "suitable",
+      "unchanged": true
+    },
+    {
+      "word": "unique",
+      "file": "pronunciation-audio/lookup-c225be5234372c8d56.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-b0a25677.flac",
+      "sha256": "c225be5234372c8d56a5cbb90953384f8f4ce3e4f6d02dbe1c6e4f4b8d757d35",
+      "bytes": 53751,
+      "exactSpokenText": "unique",
+      "unchanged": true
+    },
+    {
+      "word": "vivid",
+      "file": "pronunciation-audio/lookup-e827edc5f6f67e1cbc.flac",
+      "recordingType": "human",
+      "recordingScope": "word",
+      "partOfSpeech": "",
+      "dialect": "US",
+      "speaker": "Mary Maury",
+      "author": "Bernadette Perrin-Riou, Csilla Ducrocq, Mary Maury",
+      "license": "CC BY 3.0 US",
+      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/us/",
+      "sourceUrl": "https://fsi-languages.yojik.eu/audiocollections/detailled/eng-wims-mary/readme.txt",
+      "sourceArchiveUrl": "https://fsi-languages.yojik.eu/audiocollections/archives/eng-wims-mary_flac.tar.xz",
+      "sourceArchiveSha256": "99ecc32de782e8543fae7296fa17c2776f4bd25fe21dc67e923748503d101723",
+      "archiveMember": "flac/eng-58023bb6.flac",
+      "sha256": "e827edc5f6f67e1cbcc5bf52a45e850a3be45e084db3727c9e4c132e2310abb9",
+      "bytes": 59640,
+      "exactSpokenText": "vivid",
+      "unchanged": true
     }
   ],
   "missing": [
     {
-      "word": "accumulate",
+      "word": "abandoned",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "abstract",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "adopted",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "appliances",
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
       "word": "archive",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "aspect",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "association",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "assumed",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "assumption",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "attached",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "audience",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "automatically",
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
@@ -31249,11 +32589,31 @@
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
+      "word": "boundaries",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
       "word": "choir",
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
-      "word": "clarity",
+      "word": "circulate",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "clarification",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "clarify",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "client",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "concentration",
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
@@ -31261,19 +32621,67 @@
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
+      "word": "confirmed",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "consent",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "constraints",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
       "word": "contrast",
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
-      "word": "defensive",
+      "word": "contributes",
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
-      "word": "depression",
+      "word": "contributors",
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
-      "word": "detail",
+      "word": "controllable",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "conventions",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "convey",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "creature",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "cues",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "declined",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "deducted",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "deliberate",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "determined",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "device",
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
@@ -31281,11 +32689,35 @@
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
+      "word": "dialogue",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "digitize",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "dimensions",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "disturbance",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "documented",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "dominate",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
       "word": "donate",
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
-      "word": "egyptian",
+      "word": "donations",
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
@@ -31293,11 +32725,31 @@
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
+      "word": "ensure",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "enthusiasm",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
       "word": "erosion",
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
+      "word": "estimated",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "evaluate",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
       "word": "evaluation",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "facilities",
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
@@ -31309,6 +32761,14 @@
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
+      "word": "fulfill",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "generously",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
       "word": "harvest",
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
@@ -31317,11 +32777,47 @@
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
+      "word": "hesitation",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "hypothetical",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "identity",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "imposing",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "incentives",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
       "word": "incorporate",
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
+      "word": "independently",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "individual",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
       "word": "ingredient",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "ingredients",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "inherently",
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
@@ -31337,7 +32833,11 @@
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
-      "word": "knowledge",
+      "word": "investigate",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "judgment",
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
@@ -31349,11 +32849,7 @@
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
-      "word": "literal",
-      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
-    },
-    {
-      "word": "location",
+      "word": "limited",
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
@@ -31365,6 +32861,18 @@
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
+      "word": "obscure",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "observations",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "obsolete",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
       "word": "occasion",
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
@@ -31373,15 +32881,15 @@
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
-      "word": "passenger",
+      "word": "parallel",
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
-      "word": "patience",
+      "word": "participation",
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
-      "word": "pattern",
+      "word": "permanent",
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
@@ -31393,7 +32901,27 @@
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
+      "word": "perspectives",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "persuasion",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
       "word": "portion",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "portrait",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "postponed",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "potential",
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
@@ -31409,6 +32937,30 @@
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
+      "word": "procedure",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "properties",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "proposal",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "proposed",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "proxy",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "qualified",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
       "word": "quotation",
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
@@ -31417,15 +32969,11 @@
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
-      "word": "reach",
-      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
-    },
-    {
       "word": "recipient",
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
-      "word": "recover",
+      "word": "reconstruction",
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
@@ -31437,7 +32985,19 @@
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
-      "word": "rehearse",
+      "word": "rehearsing",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "reinforce",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "releasing",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "renovation",
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
@@ -31445,7 +33005,47 @@
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
+      "word": "replicas",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "represent",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "representative",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
       "word": "request",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "requested",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "reservation",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "reservations",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "residence",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "resident",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "residents",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "respondent",
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
@@ -31453,7 +33053,43 @@
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
+      "word": "restraint",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "resumes",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "retains",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "reveal",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "revenue",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "revised",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
       "word": "route",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "sample",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "scheduled",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "script",
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
@@ -31461,7 +33097,15 @@
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
+      "word": "sentence",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
       "word": "sequence",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "shared",
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
@@ -31469,7 +33113,11 @@
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
-      "word": "stage",
+      "word": "species",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "stable",
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
@@ -31477,7 +33125,31 @@
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
+      "word": "submit",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "substitute",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "substitution",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
       "word": "subtitle",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "supervision",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "supervisor",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "survived",
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
@@ -31489,11 +33161,11 @@
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
-      "word": "texture",
+      "word": "tension",
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
-      "word": "timing",
+      "word": "texture",
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
@@ -31501,11 +33173,39 @@
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
+      "word": "transactions",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "transition",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "transparent",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "unanimous",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
       "word": "uncertainty",
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
+      "word": "unconfirmed",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "universal",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
       "word": "unplanned",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "unstable",
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
@@ -31517,11 +33217,27 @@
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
+      "word": "varies",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
       "word": "variety",
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
+      "word": "verifies",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
       "word": "version",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "vessels",
+      "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
+    },
+    {
+      "word": "volunteer",
       "reason": "本地尚无核对过的完整真人录音；可点击按钮按需查找在线原音。"
     },
     {
@@ -36335,6 +38051,6 @@
     "incorporate": []
   },
   "lookupBankCredits": "pronunciation-lookup/credits.json",
-  "availableCount": 274,
-  "archivedCount": 15
+  "availableCount": 316,
+  "archivedCount": 38
 }
