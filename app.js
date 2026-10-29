@@ -240,9 +240,24 @@ function clozePassageText(text,lesson){
 }
 function sourceErrata(lesson){return (lesson.sourceErrata||[]).map(e=>`<p class="text-note source-erratum">原题勘误：${esc(typeof e==='string'?e:e.note)}${e.url?` <a href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.label||'核对来源')}</a>`:''}</p>`).join('')}
 function clozeAnswerSnapshot(lesson){return Object.fromEntries(lesson.questions.map(q=>[q.number,saved.answers[day().date+'-'+lesson.id+'-'+q.number]||'']));}
+function matchingParagraphSelections(lesson){
+  const selections=Object.create(null);
+  if(lesson.readingType!=='matching')return selections;
+  const labels=new Set((lesson.paragraphs||[]).map((p,i)=>p.label||String.fromCharCode(65+i)));
+  for(const q of lesson.questions||[]){
+    const choice=saved.answers[day().date+'-'+lesson.id+'-'+q.number];
+    if(labels.has(choice))(selections[choice]??=[]).push(q.number);
+  }
+  return selections;
+}
 function passageBlock(lesson,exam=false){
-  const cloze=lesson.readingType==='cloze';
-  return `${!exam?sourceErrata(lesson):''}<div class="reading-passage ${cloze?'cloze-passage':''}">${lesson.wordBank?.length?(window.ClozeSupport?.renderBank(lesson,{date:day().date,answers:clozeAnswerSnapshot(lesson)})||''):''}${(lesson.paragraphs||[]).map((p,i)=>{if(typeof p==='string')p={text:p};const paragraphQuestions=cloze?[...String(p.text).matchAll(/__(\d+)__/g)].map(m=>lesson.questions.find(q=>q.number===+m[1])).filter(Boolean):[];return `<article class="passage-paragraph">${p.label?`<b class="paragraph-letter">${esc(p.label)}</b>`:''}<p class="passage-text">${cloze?clozePassageText(p.text,lesson):esc(p.text)}</p>${!exam?panel(lesson.id+'-para-'+i,'显示本段中文',`<p>${esc(p.zh||'本段译文正在校对，请先参照英文与原卷。')}</p>`):''}${!exam&&cloze?`<div class="cloze-paragraph-explanations">${paragraphQuestions.map(q=>questionBlock(q,lesson,false)).join('')}</div>`:''}</article>`}).join('')}</div>`;
+  const cloze=lesson.readingType==='cloze',matching=lesson.readingType==='matching',selections=matchingParagraphSelections(lesson);
+  return `${!exam?sourceErrata(lesson):''}<div class="reading-passage ${cloze?'cloze-passage':''}">${lesson.wordBank?.length?(window.ClozeSupport?.renderBank(lesson,{date:day().date,answers:clozeAnswerSnapshot(lesson)})||''):''}${(lesson.paragraphs||[]).map((p,i)=>{
+    if(typeof p==='string')p={text:p};
+    const label=p.label||String.fromCharCode(65+i),selectedQuestions=selections[label]||[];
+    const paragraphQuestions=cloze?[...String(p.text).matchAll(/__(\d+)__/g)].map(m=>lesson.questions.find(q=>q.number===+m[1])).filter(Boolean):[];
+    return `<article class="passage-paragraph${matching?' matching-paragraph':''}${selectedQuestions.length?' is-selected-paragraph':''}"${matching?` data-paragraph-label="${esc(label)}"`:''}>${p.label?`<b class="paragraph-letter">${esc(p.label)}</b>`:''}${selectedQuestions.length?`<span class="matching-selection-marker" data-annotation-ignore="true" aria-label="第${esc(selectedQuestions.join('、'))}题已选择${esc(label)}段">已选用 · ${esc(selectedQuestions.join('、'))}题</span>`:''}<p class="passage-text">${cloze?clozePassageText(p.text,lesson):esc(p.text)}</p>${!exam?panel(lesson.id+'-para-'+i,'显示本段中文',`<p>${esc(p.zh||'本段译文正在校对，请先参照英文与原卷。')}</p>`):''}${!exam&&cloze?`<div class="cloze-paragraph-explanations">${paragraphQuestions.map(q=>questionBlock(q,lesson,false)).join('')}</div>`:''}</article>`;
+  }).join('')}</div>`;
 }
 function lessonHasAnswers(lesson){return lesson.questions.some(q=>!!saved.answers[day().date+'-'+lesson.id+'-'+q.number]);}
 function resetLessonAnswers(id){

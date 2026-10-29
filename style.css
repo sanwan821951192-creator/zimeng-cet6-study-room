@@ -328,3 +328,6 @@ body.has-question-window .listening-scratch{order:-1;position:static;max-height:
 #notebook-recovery-tools .recovery-candidate{display:block;margin:8px 0;padding:10px 12px;border:1px solid var(--line);border-radius:4px;cursor:pointer;overflow-wrap:anywhere}
 #notebook-recovery-tools .recovery-candidate input{width:auto;margin:0 8px 0 0;accent-color:var(--pine)}
 #notebook-recovery-tools .recovery-candidate small{display:block;margin:4px 0 0 26px;font-size:12px}
+
+.matching-selection-marker{display:inline-flex;align-items:center;margin:0 0 10px 10px;padding:3px 10px;border:1px solid #cadbcf;border-radius:5px;background:#e7f0e8;color:var(--pine);font-size:13px;font-weight:600;line-height:1.6;vertical-align:middle}
+.matching-paragraph.is-selected-paragraph>.paragraph-letter{box-shadow:0 0 0 3px #dce9df}
